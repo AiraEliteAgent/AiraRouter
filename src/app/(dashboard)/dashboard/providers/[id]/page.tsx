@@ -4219,7 +4219,7 @@ function ConnectionRow({
 
   return (
     <div
-      className={`group flex items-center justify-between p-3 rounded-lg hover:bg-black/[0.02] dark:hover:bg-white/[0.02] transition-colors ${connection.isActive === false ? "opacity-60" : ""}`}
+      className={`group flex flex-col md:flex-row md:items-center md:justify-between gap-3 p-3 rounded-lg hover:bg-black/[0.02] dark:hover:bg-white/[0.02] transition-colors ${connection.isActive === false ? "opacity-60" : ""}`}
     >
       <div className="flex items-center gap-3 flex-1 min-w-0">
         {/* Priority arrows */}
@@ -4367,7 +4367,7 @@ function ConnectionRow({
           </div>
         </div>
       </div>
-      <div className="flex items-center gap-2">
+      <div className="flex flex-wrap items-center gap-2 md:ml-auto">
         <Button
           size="sm"
           variant="ghost"
