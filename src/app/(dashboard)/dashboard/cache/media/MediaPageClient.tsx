@@ -669,7 +669,7 @@ export default function MediaPageClient() {
               <span className="material-symbols-outlined text-[16px] sm:text-[18px]">
                 {cfg.icon}
               </span>
-              <span className="hidden xs:inline">{cfg.label}</span>
+              <span className="truncate">{cfg.label}</span>
             </button>
           );
         })}
@@ -941,7 +941,7 @@ export default function MediaPageClient() {
       )}
 
       {/* Info cards */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4">
         {(Object.keys(MODALITY_CONFIG) as Modality[]).map((key) => {
           const cfg = MODALITY_CONFIG[key];
           const providerCount = PROVIDER_MODELS[key]?.length ?? 0;
