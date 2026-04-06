@@ -25,8 +25,8 @@ async function testComboModel(modelStr, internalUrl) {
           // bypass REQUIRE_API_KEY so admins can test with local session auth.
           "X-Internal-Test": "combo-health-check",
           // Force a fresh execution path so combo tests cannot be satisfied by
-          // OmniRoute's semantic cache or other request reuse layers.
-          "X-OmniRoute-No-Cache": "true",
+          // AiraRouter's semantic cache or other request reuse layers.
+          "X-AiraRouter-No-Cache": "true",
           "X-Request-Id": `combo-test-${randomUUID()}`,
         },
         body: JSON.stringify(testBody),

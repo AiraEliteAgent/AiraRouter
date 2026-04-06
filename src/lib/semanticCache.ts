@@ -5,7 +5,7 @@
  * Two-tier: in-memory LRU (fast) + SQLite (persistent across restarts).
  *
  * Cache key = SHA-256(model + normalized messages + temperature + top_p)
- * Bypass: X-OmniRoute-No-Cache: true
+ * Bypass: X-AiraRouter-No-Cache: true
  *
  * @module lib/semanticCache
  */
@@ -377,7 +377,7 @@ export function getCacheStats() {
  * Only non-streaming, deterministic (temperature=0) requests.
  */
 export function isCacheable(body, headers) {
-  if ((getHeaderValue(headers, "x-omniroute-no-cache") || "").toLowerCase() === "true") {
+  if ((getHeaderValue(headers, "x-airarouter-no-cache") || "").toLowerCase() === "true") {
     return false;
   }
   if (body.stream !== false) return false;

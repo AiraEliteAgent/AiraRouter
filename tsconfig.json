@@ -18,8 +18,8 @@
     "forceConsistentCasingInFileNames": true,
     "paths": {
       "@/*": ["./src/*"],
-      "@omniroute/open-sse": ["./open-sse"],
-      "@omniroute/open-sse/*": ["./open-sse/*"]
+      "@airarouter/open-sse": ["./open-sse"],
+      "@airarouter/open-sse/*": ["./open-sse/*"]
     },
     "plugins": [
       {
@@ -43,7 +43,7 @@
     "antigravity-manager-analysis",
     "app.__qa_backup",
     "vscode-extension",
-    "omnirouteCloud",
-    "omnirouteSite"
+    "airarouterCloud",
+    "airarouterSite"
   ]
 }

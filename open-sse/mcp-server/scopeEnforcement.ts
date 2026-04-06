@@ -49,7 +49,7 @@ function extractMetaScopeList(meta: unknown): string[] {
     if (authScopes.length > 0) return authScopes;
   }
 
-  const omni = metaRecord.omniroute;
+  const omni = metaRecord.airarouter;
   if (omni && typeof omni === "object") {
     const omniScopes = normalizeScopeList((omni as Record<string, unknown>).scopes);
     if (omniScopes.length > 0) return omniScopes;

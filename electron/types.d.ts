@@ -1,5 +1,5 @@
 /**
- * OmniRoute Electron Types
+ * AiraRouter Electron Types
  *
  * TypeScript definitions for the Electron API exposed to the renderer process.
  *

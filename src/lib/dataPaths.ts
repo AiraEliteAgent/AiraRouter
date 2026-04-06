@@ -1,7 +1,7 @@
 import path from "path";
 import os from "os";
 
-export const APP_NAME = "omniroute";
+export const APP_NAME = "airarouter";
 
 function safeHomeDir() {
   try {

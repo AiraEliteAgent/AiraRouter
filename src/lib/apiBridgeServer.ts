@@ -71,11 +71,11 @@ function proxyRequest(req: IncomingMessage, res: ServerResponse, dashboardPort: 
 }
 
 declare global {
-  var __omnirouteApiBridgeStarted: boolean | undefined;
+  var __airarouterApiBridgeStarted: boolean | undefined;
 }
 
 export function initApiBridgeServer(): void {
-  if (globalThis.__omnirouteApiBridgeStarted) return;
+  if (globalThis.__airarouterApiBridgeStarted) return;
 
   const { apiPort, dashboardPort } = getRuntimePorts();
   if (apiPort === dashboardPort) return;
@@ -115,7 +115,7 @@ export function initApiBridgeServer(): void {
   });
 
   server.listen(apiPort, host, () => {
-    globalThis.__omnirouteApiBridgeStarted = true;
+    globalThis.__airarouterApiBridgeStarted = true;
     console.log(`[API Bridge] Listening on ${host}:${apiPort} -> dashboard:${dashboardPort}`);
   });
 }

@@ -1,14 +1,14 @@
 {
-  "name": "omniroute-desktop",
+  "name": "airarouter-desktop",
   "version": "3.5.2",
-  "description": "OmniRoute Desktop Application",
+  "description": "AiraRouter Desktop Application",
   "main": "main.js",
   "author": {
-    "name": "OmniRoute Team",
-    "email": "support@omniroute.online"
+    "name": "AiraRouter Team",
+    "email": "support@airarouter.online"
   },
   "license": "MIT",
-  "homepage": "https://omniroute.online",
+  "homepage": "https://airarouter.online",
   "scripts": {
     "start": "electron .",
     "dev": "electron . --no-sandbox",
@@ -29,9 +29,9 @@
     "electron-builder": "^25.1.8"
   },
   "build": {
-    "appId": "online.omniroute.desktop",
-    "productName": "OmniRoute",
-    "copyright": "Copyright © 2025 OmniRoute",
+    "appId": "online.airarouter.desktop",
+    "productName": "AiraRouter",
+    "copyright": "Copyright © 2025 AiraRouter",
     "directories": {
       "output": "dist-electron",
       "buildResources": "assets"
@@ -39,7 +39,7 @@
     "publish": {
       "provider": "github",
       "owner": "diegosouzapw",
-      "repo": "OmniRoute"
+      "repo": "AiraRouter"
     },
     "files": [
       "main.js",

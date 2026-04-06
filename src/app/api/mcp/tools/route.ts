@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { MCP_TOOLS, MCP_TOOL_MAP } from "@omniroute/open-sse/mcp-server/schemas/tools";
+import { MCP_TOOLS, MCP_TOOL_MAP } from "@airarouter/open-sse/mcp-server/schemas/tools";
 
 export async function GET() {
   try {

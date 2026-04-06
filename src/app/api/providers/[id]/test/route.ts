@@ -12,10 +12,10 @@ import { syncToCloud } from "@/lib/cloudSync";
 import { validateProviderApiKey } from "@/lib/providers/validation";
 import { getCliRuntimeStatus } from "@/shared/services/cliRuntime";
 // Use the shared open-sse token refresh with built-in dedup/race-condition cache
-import { getAccessToken } from "@omniroute/open-sse/services/tokenRefresh.ts";
+import { getAccessToken } from "@airarouter/open-sse/services/tokenRefresh.ts";
 import { saveCallLog } from "@/lib/usageDb";
 import { logProxyEvent } from "@/lib/proxyLogger";
-import { runWithProxyContext } from "@omniroute/open-sse/utils/proxyFetch.ts";
+import { runWithProxyContext } from "@airarouter/open-sse/utils/proxyFetch.ts";
 
 // OAuth provider test endpoints
 const OAUTH_TEST_CONFIG = {
@@ -50,7 +50,7 @@ const OAUTH_TEST_CONFIG = {
     method: "GET",
     authHeader: "Authorization",
     authPrefix: "Bearer ",
-    extraHeaders: { "User-Agent": "OmniRoute", Accept: "application/vnd.github+json" },
+    extraHeaders: { "User-Agent": "AiraRouter", Accept: "application/vnd.github+json" },
   },
   iflow: {
     // iFlow's getUserInfo endpoint returns 400 without a specific format.

@@ -28,25 +28,25 @@ export type McpScope = (typeof MCP_SCOPE_LIST)[number];
 /** Maps each MCP tool to its required scopes */
 export const MCP_TOOL_SCOPES: Record<string, readonly McpScope[]> = {
   // Phase 1: Essential Tools
-  omniroute_get_health: ["read:health"],
-  omniroute_list_combos: ["read:combos"],
-  omniroute_get_combo_metrics: ["read:combos"],
-  omniroute_switch_combo: ["write:combos"],
-  omniroute_check_quota: ["read:quota"],
-  omniroute_route_request: ["execute:completions"],
-  omniroute_web_search: ["execute:search"],
-  omniroute_cost_report: ["read:usage"],
-  omniroute_list_models_catalog: ["read:models"],
+  airarouter_get_health: ["read:health"],
+  airarouter_list_combos: ["read:combos"],
+  airarouter_get_combo_metrics: ["read:combos"],
+  airarouter_switch_combo: ["write:combos"],
+  airarouter_check_quota: ["read:quota"],
+  airarouter_route_request: ["execute:completions"],
+  airarouter_web_search: ["execute:search"],
+  airarouter_cost_report: ["read:usage"],
+  airarouter_list_models_catalog: ["read:models"],
 
   // Phase 2: Advanced Tools
-  omniroute_simulate_route: ["read:health", "read:combos"],
-  omniroute_set_budget_guard: ["write:budget"],
-  omniroute_set_resilience_profile: ["write:resilience"],
-  omniroute_test_combo: ["execute:completions", "read:combos"],
-  omniroute_get_provider_metrics: ["read:health"],
-  omniroute_best_combo_for_task: ["read:combos", "read:health"],
-  omniroute_explain_route: ["read:health", "read:usage"],
-  omniroute_get_session_snapshot: ["read:usage"],
+  airarouter_simulate_route: ["read:health", "read:combos"],
+  airarouter_set_budget_guard: ["write:budget"],
+  airarouter_set_resilience_profile: ["write:resilience"],
+  airarouter_test_combo: ["execute:completions", "read:combos"],
+  airarouter_get_provider_metrics: ["read:health"],
+  airarouter_best_combo_for_task: ["read:combos", "read:health"],
+  airarouter_explain_route: ["read:health", "read:usage"],
+  airarouter_get_session_snapshot: ["read:usage"],
 } as const;
 
 // ============ Scope Groups ============

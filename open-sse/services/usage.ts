@@ -830,7 +830,7 @@ async function getClaudeUsage(accessToken) {
       const quotas: Record<string, UsageQuota> = {};
 
       // utilization = percentage USED (e.g., 90 means 90% used, 10% remaining)
-      // Confirmed via user report #299: Claude.ai shows 87% used = OmniRoute must show 13% remaining.
+      // Confirmed via user report #299: Claude.ai shows 87% used = AiraRouter must show 13% remaining.
       const hasUtilization = (window: JsonRecord) =>
         window && typeof window === "object" && safePercentage(window.utilization) !== undefined;
 
@@ -1170,7 +1170,7 @@ function getKimiPlanName(level) {
 async function getKimiUsage(accessToken) {
   // Generate device info for headers (same as OAuth flow)
   const deviceId = "kimi-usage-" + Date.now();
-  const platform = "omniroute";
+  const platform = "airarouter";
   const version = "2.1.2";
   const deviceModel =
     typeof process !== "undefined" ? `${process.platform} ${process.arch}` : "unknown";

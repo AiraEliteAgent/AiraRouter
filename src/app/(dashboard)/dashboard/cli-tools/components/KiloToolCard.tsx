@@ -41,7 +41,7 @@ export default function KiloToolCard({
 
   const getConfigStatus = () => {
     if (!cliReady) return null;
-    if (!kiloStatus.hasOmniRoute) return "not_configured";
+    if (!kiloStatus.hasAiraRouter) return "not_configured";
     return "configured";
   };
 
@@ -143,7 +143,7 @@ export default function KiloToolCard({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           baseUrl: normalizedBaseUrl,
-          apiKey: selectedApiKey || "sk_omniroute",
+          apiKey: selectedApiKey || "sk_airarouter",
           model: selectedModel,
         }),
       });
@@ -295,7 +295,7 @@ export default function KiloToolCard({
                       </span>
                       <div className="flex flex-col gap-1">
                         <p className="text-sm text-green-700 dark:text-green-300">
-                          {t("omnirouteConfiguredOpenAiCompatible")}
+                          {t("airarouterConfiguredOpenAiCompatible")}
                         </p>
                         <p className="text-xs text-text-muted">
                           {t("providers")}:{" "}

@@ -43,7 +43,7 @@ export async function POST(request, { params }) {
         return await saveContinueConfig({ baseUrl, apiKey, model });
       case "opencode":
         // (#524) OpenCode config was never saved because only 'continue' was handled here.
-        // opencode reads ~/.config/opencode/config.toml — write the OmniRoute settings there.
+        // opencode reads ~/.config/opencode/config.toml — write the AiraRouter settings there.
         return await saveOpenCodeConfig({ baseUrl, apiKey, model });
       default:
         return NextResponse.json(
@@ -77,7 +77,7 @@ async function saveContinueConfig({ baseUrl, apiKey, model }) {
     // No existing config or invalid JSON — start fresh
   }
 
-  // Build the OmniRoute model entry
+  // Build the AiraRouter model entry
   const normalizedBaseUrl = String(baseUrl || "")
     .trim()
     .replace(/\/+$/, "");
@@ -86,8 +86,8 @@ async function saveContinueConfig({ baseUrl, apiKey, model }) {
     title: model,
     model: model,
     provider: "openai",
-    apiKey: apiKey || "sk_omniroute",
-    omnirouteManaged: true,
+    apiKey: apiKey || "sk_airarouter",
+    airarouterManaged: true,
   };
 
   // Merge into existing models array
@@ -100,18 +100,18 @@ async function saveContinueConfig({ baseUrl, apiKey, model }) {
       .toLowerCase();
   }
 
-  // Check if OmniRoute entry already exists and update it, or add new
+  // Check if AiraRouter entry already exists and update it, or add new
   const existingIdx = models.findIndex(
     (m) =>
       m &&
-      (m.omnirouteManaged === true ||
+      (m.airarouterManaged === true ||
         normalizeApiBase(m.apiBase) === normalizedBaseUrl.toLowerCase() ||
-        normalizeApiBase(m.apiBase).includes("omniroute") ||
+        normalizeApiBase(m.apiBase).includes("airarouter") ||
         normalizeApiBase(m.apiBase).includes(`localhost:${apiPort}`) ||
         normalizeApiBase(m.apiBase).includes(`127.0.0.1:${apiPort}`) ||
         String(m.apiKey || "")
           .toLowerCase()
-          .includes("sk_omniroute"))
+          .includes("sk_airarouter"))
   );
 
   if (existingIdx >= 0) {

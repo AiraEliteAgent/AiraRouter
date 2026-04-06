@@ -16,16 +16,16 @@
 const SHUTDOWN_TIMEOUT_MS = parseInt(process.env.SHUTDOWN_TIMEOUT_MS || "30000", 10);
 
 declare global {
-  var __omnirouteShutdown:
+  var __airarouterShutdown:
     | { init: boolean; shuttingDown: boolean; activeRequests: number }
     | undefined;
 }
 
 function getShutdownState() {
-  if (!globalThis.__omnirouteShutdown) {
-    globalThis.__omnirouteShutdown = { init: false, shuttingDown: false, activeRequests: 0 };
+  if (!globalThis.__airarouterShutdown) {
+    globalThis.__airarouterShutdown = { init: false, shuttingDown: false, activeRequests: 0 };
   }
-  return globalThis.__omnirouteShutdown;
+  return globalThis.__airarouterShutdown;
 }
 
 /**

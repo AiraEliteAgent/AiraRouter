@@ -37,10 +37,10 @@ export const buildOpenCodeProviderConfig = ({
 
   return {
     npm: "@ai-sdk/openai-compatible",
-    name: "OmniRoute",
+    name: "AiraRouter",
     options: {
       baseURL: normalizedBaseUrl,
-      apiKey: apiKey || "sk_omniroute",
+      apiKey: apiKey || "sk_airarouter",
     },
     models: modelsRecord,
   };
@@ -59,7 +59,7 @@ export const mergeOpenCodeConfig = (
     ...safeConfig,
     provider: {
       ...((safeConfig as any).provider || {}),
-      omniroute: buildOpenCodeProviderConfig(input),
+      airarouter: buildOpenCodeProviderConfig(input),
     },
   };
 };

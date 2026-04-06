@@ -43,7 +43,7 @@ export class AntigravityExecutor extends BaseExecutor {
       "Content-Type": "application/json",
       Authorization: `Bearer ${credentials.accessToken}`,
       "User-Agent": this.config.headers?.["User-Agent"] || "antigravity/1.104.0 darwin/arm64",
-      "X-OmniRoute-Source": "omniroute",
+      "X-AiraRouter-Source": "airarouter",
       Accept: "text/event-stream",
     };
   }
@@ -68,7 +68,7 @@ export class AntigravityExecutor extends BaseExecutor {
       // (#489) Return a structured error instead of throwing — gives the client a clear signal
       // to show a "Reconnect OAuth" prompt rather than an opaque "Internal Server Error".
       const errorMsg =
-        "Missing Google projectId for Antigravity account. Please reconnect OAuth in Providers → Antigravity so OmniRoute can fetch your Cloud Code project.";
+        "Missing Google projectId for Antigravity account. Please reconnect OAuth in Providers → Antigravity so AiraRouter can fetch your Cloud Code project.";
       const errorBody = {
         error: {
           message: errorMsg,

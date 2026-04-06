@@ -139,7 +139,7 @@ function toString(value: unknown): string {
 
 /**
  * Lazy-load the database connection.
- * Uses the same SQLite database as the main OmniRoute app.
+ * Uses the same SQLite database as the main AiraRouter app.
  */
 async function getDb(): Promise<AuditDatabase | null> {
   if (db) return db;
@@ -152,7 +152,7 @@ async function getDb(): Promise<AuditDatabase | null> {
 
     const dbPath = process.env.DATA_DIR
       ? join(process.env.DATA_DIR, "storage.sqlite")
-      : join(homedir(), ".omniroute", "storage.sqlite");
+      : join(homedir(), ".airarouter", "storage.sqlite");
 
     if (!existsSync(dbPath)) {
       console.error(`[MCP Audit] Database not found at ${dbPath} — audit logging disabled`);

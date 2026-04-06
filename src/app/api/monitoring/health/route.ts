@@ -12,9 +12,10 @@ import { AI_PROVIDERS } from "@/shared/constants/providers";
 export async function GET() {
   try {
     const { getAllCircuitBreakerStatuses } = await import("@/shared/utils/circuitBreaker");
-    const { getAllRateLimitStatus } = await import("@omniroute/open-sse/services/rateLimitManager");
-    const { getAllModelLockouts } = await import("@omniroute/open-sse/services/accountFallback");
-    const { getInflightCount } = await import("@omniroute/open-sse/services/requestDedup.ts");
+    const { getAllRateLimitStatus } =
+      await import("@airarouter/open-sse/services/rateLimitManager");
+    const { getAllModelLockouts } = await import("@airarouter/open-sse/services/accountFallback");
+    const { getInflightCount } = await import("@airarouter/open-sse/services/requestDedup.ts");
 
     const settings = await getSettings();
     const connections = await getProviderConnections();

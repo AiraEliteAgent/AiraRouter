@@ -1,14 +1,14 @@
 import { CORS_ORIGIN } from "@/shared/utils/cors";
-import { errorResponse, unavailableResponse } from "@omniroute/open-sse/utils/error.ts";
-import { HTTP_STATUS } from "@omniroute/open-sse/config/constants.ts";
-import { getRegistryEntry } from "@omniroute/open-sse/config/providerRegistry.ts";
+import { errorResponse, unavailableResponse } from "@airarouter/open-sse/utils/error.ts";
+import { HTTP_STATUS } from "@airarouter/open-sse/config/constants.ts";
+import { getRegistryEntry } from "@airarouter/open-sse/config/providerRegistry.ts";
 import {
   getProviderCredentials,
   clearRecoveredProviderState,
   extractApiKey,
   isValidApiKey,
 } from "@/sse/services/auth";
-import { handleEmbedding } from "@omniroute/open-sse/handlers/embeddings.ts";
+import { handleEmbedding } from "@airarouter/open-sse/handlers/embeddings.ts";
 import * as log from "@/sse/utils/logger";
 import { enforceApiKeyPolicy } from "@/shared/utils/apiKeyPolicy";
 import { v1EmbeddingsSchema } from "@/shared/validation/schemas";

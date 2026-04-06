@@ -64,7 +64,7 @@ export default function LoginPage() {
       });
 
       if (res.ok) {
-        sessionStorage.setItem("omniroute_login_time", String(Date.now()));
+        sessionStorage.setItem("airarouter_login_time", String(Date.now()));
         router.push("/dashboard");
         router.refresh();
       } else {
@@ -127,7 +127,7 @@ export default function LoginPage() {
           </div>
 
           <p className="text-center text-xs text-text-muted/60 mt-8">
-            OmniRoute — {t("unifiedProxy")}
+            AiraRouter — {t("unifiedProxy")}
           </p>
         </div>
       </div>
@@ -166,7 +166,7 @@ export default function LoginPage() {
           </div>
 
           <p className="text-center text-xs text-text-muted/60 mt-8">
-            OmniRoute — {t("unifiedAiApiProxy")}
+            AiraRouter — {t("unifiedAiApiProxy")}
           </p>
         </div>
       </div>
@@ -184,7 +184,9 @@ export default function LoginPage() {
               <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-primary-hover flex items-center justify-center">
                 <span className="material-symbols-outlined text-white text-[20px]">hub</span>
               </div>
-              <span className="text-xl font-semibold text-text-main tracking-tight">OmniRoute</span>
+              <span className="text-xl font-semibold text-text-main tracking-tight">
+                AiraRouter
+              </span>
             </div>
             <h1 className="text-2xl font-bold text-text-main tracking-tight">{t("signIn")}</h1>
             <p className="text-text-muted mt-1.5">{t("enterPassword")}</p>

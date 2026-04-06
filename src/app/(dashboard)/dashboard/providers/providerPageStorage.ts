@@ -1,4 +1,4 @@
-export const SHOW_CONFIGURED_ONLY_STORAGE_KEY = "omniroute-providers-show-configured-only";
+export const SHOW_CONFIGURED_ONLY_STORAGE_KEY = "airarouter-providers-show-configured-only";
 
 interface StorageReader {
   getItem(key: string): string | null;

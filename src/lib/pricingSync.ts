@@ -70,7 +70,7 @@ const SYNC_SOURCES = (process.env.PRICING_SYNC_SOURCES || "litellm")
 const LITELLM_PRICING_URL =
   "https://raw.githubusercontent.com/BerriAI/litellm/main/model_prices_and_context_window.json";
 
-// ─── Provider mapping: LiteLLM provider → OmniRoute aliases ─────
+// ─── Provider mapping: LiteLLM provider → AiraRouter aliases ─────
 
 const LITELLM_PROVIDER_MAP: Record<string, string[]> = {
   openai: ["openai", "cx"],
@@ -116,12 +116,12 @@ export async function fetchLiteLLMPricing(): Promise<Record<string, LiteLLMModel
 }
 
 /**
- * Transform LiteLLM raw data → OmniRoute PricingByProvider format.
+ * Transform LiteLLM raw data → AiraRouter PricingByProvider format.
  *
- * Conversion: cost_per_token × 1_000_000 → $/1M tokens (OmniRoute format)
+ * Conversion: cost_per_token × 1_000_000 → $/1M tokens (AiraRouter format)
  * Filters: only chat/completion modes (skip image/audio/embedding)
  */
-export function transformToOmniRoute(raw: Record<string, LiteLLMModelInfo>): PricingByProvider {
+export function transformToAiraRouter(raw: Record<string, LiteLLMModelInfo>): PricingByProvider {
   const result: PricingByProvider = {};
 
   for (const [modelKey, info] of Object.entries(raw)) {
@@ -152,7 +152,7 @@ export function transformToOmniRoute(raw: Record<string, LiteLLMModelInfo>): Pri
     const slashIdx = modelKey.indexOf("/");
     const modelName = slashIdx >= 0 ? modelKey.slice(slashIdx + 1) : modelKey;
 
-    // Map to OmniRoute providers
+    // Map to AiraRouter providers
     const litellmProvider = info.litellm_provider || "";
     const omniRouteProviders = LITELLM_PROVIDER_MAP[litellmProvider];
 
@@ -268,7 +268,7 @@ export async function syncPricingFromSources(opts?: {
     for (const source of validSources) {
       if (source === "litellm") {
         const raw = await fetchLiteLLMPricing();
-        const transformed = transformToOmniRoute(raw);
+        const transformed = transformToAiraRouter(raw);
         for (const [provider, models] of Object.entries(transformed)) {
           if (!aggregated[provider]) aggregated[provider] = {};
           Object.assign(aggregated[provider], models);

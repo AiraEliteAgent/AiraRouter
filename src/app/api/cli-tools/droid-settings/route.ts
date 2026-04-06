@@ -29,10 +29,10 @@ const readSettings = async () => {
   }
 };
 
-// Check if settings has OmniRoute customModels
-const hasOmniRouteConfig = (settings: any) => {
+// Check if settings has AiraRouter customModels
+const hasAiraRouterConfig = (settings: any) => {
   if (!settings || !settings.customModels) return false;
-  return settings.customModels.some((m) => m.id === "custom:OmniRoute-0");
+  return settings.customModels.some((m) => m.id === "custom:AiraRouter-0");
 };
 
 // GET - Check droid CLI and read current settings
@@ -66,7 +66,7 @@ export async function GET() {
       runtimeMode: runtime.runtimeMode,
       reason: runtime.reason,
       settings,
-      hasOmniRoute: hasOmniRouteConfig(settings),
+      hasAiraRouter: hasAiraRouterConfig(settings),
       settingsPath: getDroidSettingsPath(),
     });
   } catch (error) {
@@ -75,7 +75,7 @@ export async function GET() {
   }
 }
 
-// POST - Update OmniRoute customModels (merge with existing settings)
+// POST - Update AiraRouter customModels (merge with existing settings)
 export async function POST(request: Request) {
   let rawBody;
   try {
@@ -141,16 +141,16 @@ export async function POST(request: Request) {
       settings.customModels = [];
     }
 
-    // Remove existing OmniRoute config if any
-    settings.customModels = settings.customModels.filter((m) => m.id !== "custom:OmniRoute-0");
+    // Remove existing AiraRouter config if any
+    settings.customModels = settings.customModels.filter((m) => m.id !== "custom:AiraRouter-0");
 
     // Normalize baseUrl to ensure /v1 suffix
     const normalizedBaseUrl = baseUrl.endsWith("/v1") ? baseUrl : `${baseUrl}/v1`;
 
-    // Add new OmniRoute config
+    // Add new AiraRouter config
     const customModel = {
       model: model,
-      id: "custom:OmniRoute-0",
+      id: "custom:AiraRouter-0",
       index: 0,
       baseUrl: normalizedBaseUrl,
       apiKey: apiKey || "your_api_key",
@@ -183,7 +183,7 @@ export async function POST(request: Request) {
   }
 }
 
-// DELETE - Remove OmniRoute customModels only (keep other settings)
+// DELETE - Remove AiraRouter customModels only (keep other settings)
 export async function DELETE() {
   try {
     const writeGuard = ensureCliConfigWriteAllowed();
@@ -211,9 +211,9 @@ export async function DELETE() {
       throw error;
     }
 
-    // Remove OmniRoute customModels
+    // Remove AiraRouter customModels
     if (settings.customModels) {
-      settings.customModels = settings.customModels.filter((m) => m.id !== "custom:OmniRoute-0");
+      settings.customModels = settings.customModels.filter((m) => m.id !== "custom:AiraRouter-0");
 
       // Remove customModels array if empty
       if (settings.customModels.length === 0) {
@@ -233,7 +233,7 @@ export async function DELETE() {
 
     return NextResponse.json({
       success: true,
-      message: "OmniRoute settings removed successfully",
+      message: "AiraRouter settings removed successfully",
     });
   } catch (error) {
     console.log("Error resetting droid settings:", error);

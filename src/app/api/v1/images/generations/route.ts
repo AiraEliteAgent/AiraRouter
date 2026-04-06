@@ -1,5 +1,5 @@
 import { CORS_ORIGIN } from "@/shared/utils/cors";
-import { handleImageGeneration } from "@omniroute/open-sse/handlers/imageGeneration.ts";
+import { handleImageGeneration } from "@airarouter/open-sse/handlers/imageGeneration.ts";
 import {
   getProviderCredentials,
   clearRecoveredProviderState,
@@ -10,9 +10,9 @@ import {
   parseImageModel,
   getAllImageModels,
   getImageProvider,
-} from "@omniroute/open-sse/config/imageRegistry.ts";
-import { errorResponse, unavailableResponse } from "@omniroute/open-sse/utils/error.ts";
-import { HTTP_STATUS } from "@omniroute/open-sse/config/constants.ts";
+} from "@airarouter/open-sse/config/imageRegistry.ts";
+import { errorResponse, unavailableResponse } from "@airarouter/open-sse/utils/error.ts";
+import { HTTP_STATUS } from "@airarouter/open-sse/config/constants.ts";
 import * as log from "@/sse/utils/logger";
 import { toJsonErrorPayload } from "@/shared/utils/upstreamError";
 import { enforceApiKeyPolicy } from "@/shared/utils/apiKeyPolicy";

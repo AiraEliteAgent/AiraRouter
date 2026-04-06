@@ -29,10 +29,10 @@ const readSettings = async () => {
   }
 };
 
-// Check if settings has OmniRoute config
-const hasOmniRouteConfig = (settings: any) => {
+// Check if settings has AiraRouter config
+const hasAiraRouterConfig = (settings: any) => {
   if (!settings || !settings.models || !settings.models.providers) return false;
-  return !!settings.models.providers["omniroute"];
+  return !!settings.models.providers["airarouter"];
 };
 
 // GET - Check openclaw CLI and read current settings
@@ -66,7 +66,7 @@ export async function GET() {
       runtimeMode: runtime.runtimeMode,
       reason: runtime.reason,
       settings,
-      hasOmniRoute: hasOmniRouteConfig(settings),
+      hasAiraRouter: hasAiraRouterConfig(settings),
       settingsPath: getOpenClawSettingsPath(),
     });
   } catch (error) {
@@ -75,7 +75,7 @@ export async function GET() {
   }
 }
 
-// POST - Update OmniRoute settings (merge with existing settings)
+// POST - Update AiraRouter settings (merge with existing settings)
 export async function POST(request: Request) {
   let rawBody;
   try {
@@ -144,10 +144,10 @@ export async function POST(request: Request) {
     const normalizedBaseUrl = baseUrl.endsWith("/v1") ? baseUrl : `${baseUrl}/v1`;
 
     // Update agents.defaults.model.primary
-    settings.agents.defaults.model.primary = `omniroute/${model}`;
+    settings.agents.defaults.model.primary = `airarouter/${model}`;
 
-    // Update models.providers.omniroute
-    settings.models.providers["omniroute"] = {
+    // Update models.providers.airarouter
+    settings.models.providers["airarouter"] = {
       baseUrl: normalizedBaseUrl,
       apiKey: apiKey || "your_api_key",
       api: "openai-completions",
@@ -180,7 +180,7 @@ export async function POST(request: Request) {
   }
 }
 
-// DELETE - Remove OmniRoute settings only (keep other settings)
+// DELETE - Remove AiraRouter settings only (keep other settings)
 export async function DELETE() {
   try {
     const writeGuard = ensureCliConfigWriteAllowed();
@@ -208,9 +208,9 @@ export async function DELETE() {
       throw error;
     }
 
-    // Remove OmniRoute from models.providers
+    // Remove AiraRouter from models.providers
     if (settings.models && settings.models.providers) {
-      delete settings.models.providers["omniroute"];
+      delete settings.models.providers["airarouter"];
 
       // Remove providers object if empty
       if (Object.keys(settings.models.providers).length === 0) {
@@ -218,8 +218,8 @@ export async function DELETE() {
       }
     }
 
-    // Reset agents.defaults.model.primary if it uses omniroute
-    if (settings.agents?.defaults?.model?.primary?.startsWith("omniroute/")) {
+    // Reset agents.defaults.model.primary if it uses airarouter
+    if (settings.agents?.defaults?.model?.primary?.startsWith("airarouter/")) {
       delete settings.agents.defaults.model.primary;
     }
 
@@ -235,7 +235,7 @@ export async function DELETE() {
 
     return NextResponse.json({
       success: true,
-      message: "OmniRoute settings removed successfully",
+      message: "AiraRouter settings removed successfully",
     });
   } catch (error) {
     console.log("Error resetting openclaw settings:", error);

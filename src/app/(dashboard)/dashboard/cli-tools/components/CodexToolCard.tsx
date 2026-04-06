@@ -115,12 +115,12 @@ export default function CodexToolCard({
     setApplying(true);
     setMessage(null);
     try {
-      // Use sk_omniroute for localhost if no key, otherwise use selected key
+      // Use sk_airarouter for localhost if no key, otherwise use selected key
       const keyToUse =
         selectedApiKey && selectedApiKey.trim()
           ? selectedApiKey
           : !cloudEnabled
-            ? "sk_omniroute"
+            ? "sk_airarouter"
             : selectedApiKey;
 
       const res = await fetch("/api/cli-tools/codex-settings", {
@@ -284,15 +284,15 @@ export default function CodexToolCard({
       selectedApiKey && selectedApiKey.trim()
         ? selectedApiKey
         : !cloudEnabled
-          ? "sk_omniroute"
+          ? "sk_airarouter"
           : "<API_KEY_FROM_DASHBOARD>";
 
-    const configContent = `# OmniRoute Configuration for Codex CLI
+    const configContent = `# AiraRouter Configuration for Codex CLI
 model = "${selectedModel}"
-model_provider = "omniroute"
+model_provider = "airarouter"
 
-[model_providers.omniroute]
-name = "OmniRoute"
+[model_providers.airarouter]
+name = "AiraRouter"
 base_url = "${getEffectiveBaseUrl()}"
 wire_api = "responses"
 `;
@@ -562,7 +562,7 @@ wire_api = "responses"
                   variant="outline"
                   size="sm"
                   onClick={handleResetSettings}
-                  disabled={!codexStatus.hasOmniRoute}
+                  disabled={!codexStatus.hasAiraRouter}
                   loading={restoring}
                 >
                   <span className="material-symbols-outlined text-[14px] mr-1">restore</span>

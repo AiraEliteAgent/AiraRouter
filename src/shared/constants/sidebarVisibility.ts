@@ -89,7 +89,7 @@ const HELP_SIDEBAR_ITEMS: readonly SidebarItemDefinition[] = [
   { id: "docs", href: "/docs", i18nKey: "docs", icon: "menu_book", external: true },
   {
     id: "issues",
-    href: "https://github.com/diegosouzapw/OmniRoute/issues",
+    href: "https://github.com/diegosouzapw/AiraRouter/issues",
     i18nKey: "issues",
     icon: "bug_report",
     external: true,
@@ -132,7 +132,7 @@ export const SIDEBAR_SECTIONS: readonly SidebarSectionDefinition[] = [
 ] as const;
 
 export const HIDDEN_SIDEBAR_ITEMS_SETTING_KEY = "hiddenSidebarItems";
-export const SIDEBAR_SETTINGS_UPDATED_EVENT = "omniroute:settings-updated";
+export const SIDEBAR_SETTINGS_UPDATED_EVENT = "airarouter:settings-updated";
 
 export function normalizeHiddenSidebarItems(value: unknown): HideableSidebarItemId[] {
   if (!Array.isArray(value)) return [];

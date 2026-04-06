@@ -13,9 +13,9 @@
  * @module domain/quotaCache
  */
 
-import { getUsageForProvider } from "@omniroute/open-sse/services/usage.ts";
+import { getUsageForProvider } from "@airarouter/open-sse/services/usage.ts";
 import { getProviderConnectionById, resolveProxyForConnection } from "@/lib/localDb";
-import { runWithProxyContext } from "@omniroute/open-sse/utils/proxyFetch.ts";
+import { runWithProxyContext } from "@airarouter/open-sse/utils/proxyFetch.ts";
 import { safePercentage } from "@/shared/utils/formatting";
 import { saveQuotaSnapshot, cleanupOldSnapshots } from "@/lib/db/quotaSnapshots";
 

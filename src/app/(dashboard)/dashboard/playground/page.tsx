@@ -374,7 +374,7 @@ export default function PlaygroundPage() {
         }
         const fetchHeaders: Record<string, string> = {};
         if (selectedConnection) {
-          fetchHeaders["X-OmniRoute-Connection"] = selectedConnection;
+          fetchHeaders["X-AiraRouter-Connection"] = selectedConnection;
         }
         res = await fetch(`/api${path}`, {
           method: "POST",
@@ -390,7 +390,7 @@ export default function PlaygroundPage() {
         }
         const fetchHeaders: Record<string, string> = { "Content-Type": "application/json" };
         if (selectedConnection) {
-          fetchHeaders["X-OmniRoute-Connection"] = selectedConnection;
+          fetchHeaders["X-AiraRouter-Connection"] = selectedConnection;
         }
         res = await fetch(`/api${path}`, {
           method: "POST",

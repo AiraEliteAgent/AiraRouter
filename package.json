@@ -1,11 +1,11 @@
 {
-  "name": "omniroute",
+  "name": "airarouter",
   "version": "3.5.2",
-  "description": "Smart AI Router with auto fallback — route to FREE & cheap models, zero downtime. Works with Cursor, Cline, Claude Desktop, Codex, and any OpenAI-compatible tool.",
+  "description": "AiraRouter - Smart AI Router with auto fallback — route to FREE & cheap models, zero downtime. Works with Cursor, Cline, Claude Desktop, Codex, and any OpenAI-compatible tool.",
   "type": "module",
   "bin": {
-    "omniroute": "bin/omniroute.mjs",
-    "omniroute-reset-password": "bin/reset-password.mjs"
+    "airarouter": "bin/airarouter.mjs",
+    "airarouter-reset-password": "bin/reset-password.mjs"
   },
   "files": [
     "bin/",
@@ -42,9 +42,9 @@
   "author": "diegosouzapw",
   "repository": {
     "type": "git",
-    "url": "https://github.com/diegosouzapw/OmniRoute"
+    "url": "https://github.com/diegosouzapw/AiraRouter"
   },
-  "homepage": "https://omniroute.online",
+  "homepage": "https://airarouter.online",
   "scripts": {
     "dev": "node scripts/run-next.mjs dev",
     "build": "node scripts/build-next-isolated.mjs",
@@ -165,7 +165,7 @@
       "@swc/core",
       "better-sqlite3",
       "esbuild",
-      "omniroute",
+      "airarouter",
       "sharp"
     ]
   },

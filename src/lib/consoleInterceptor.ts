@@ -18,7 +18,7 @@ const logToFile = getAppLogToFile();
 const logFilePath = resolve(getAppLogFilePath());
 
 declare global {
-  var __omnirouteConsoleInterceptorInit: boolean | undefined;
+  var __airarouterConsoleInterceptorInit: boolean | undefined;
 }
 
 /**
@@ -95,7 +95,7 @@ function writeEntry(level: string, args: unknown[]) {
  * Safe to call multiple times — only initializes once.
  */
 export function initConsoleInterceptor(): void {
-  if (!logToFile || globalThis.__omnirouteConsoleInterceptorInit) return;
+  if (!logToFile || globalThis.__airarouterConsoleInterceptorInit) return;
 
   try {
     ensureDir();
@@ -104,7 +104,7 @@ export function initConsoleInterceptor(): void {
     return;
   }
 
-  globalThis.__omnirouteConsoleInterceptorInit = true;
+  globalThis.__airarouterConsoleInterceptorInit = true;
 
   // Save original methods
   const originalMethods = {

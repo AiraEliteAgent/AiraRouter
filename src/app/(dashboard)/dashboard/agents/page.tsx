@@ -428,9 +428,9 @@ export default function AgentsPage() {
                     const config = {
                       $schema: "https://opencode.ai/config.json",
                       provider: {
-                        omniroute: {
+                        airarouter: {
                           npm: "@ai-sdk/openai-compatible",
-                          name: "OmniRoute",
+                          name: "AiraRouter",
                           options: {
                             baseURL,
                             apiKey: "YOUR_OMNIROUTE_API_KEY",

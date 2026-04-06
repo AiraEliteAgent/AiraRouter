@@ -37,7 +37,7 @@ function getKey(): Buffer | null {
   if (!secret) return null;
 
   // Fixed salt derived from app name — deterministic so same key always produces same derived key
-  const salt = "omniroute-field-encryption-v1";
+  const salt = "airarouter-field-encryption-v1";
   _derivedKey = scryptSync(secret, salt, KEY_LENGTH);
   return _derivedKey;
 }

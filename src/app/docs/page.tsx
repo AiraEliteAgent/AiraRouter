@@ -197,7 +197,7 @@ export default function DocsPage() {
                 {t("endpointPage")}
               </Link>
               <a
-                href="https://github.com/diegosouzapw/OmniRoute"
+                href="https://github.com/diegosouzapw/AiraRouter"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="px-3 py-2 rounded-lg border border-border text-sm hover:bg-bg transition-colors flex items-center gap-1"
@@ -206,7 +206,7 @@ export default function DocsPage() {
                 <span className="material-symbols-outlined text-[14px]">open_in_new</span>
               </a>
               <a
-                href="https://github.com/diegosouzapw/OmniRoute/issues"
+                href="https://github.com/diegosouzapw/AiraRouter/issues"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="px-3 py-2 rounded-lg border border-border text-sm hover:bg-bg transition-colors"
@@ -242,7 +242,7 @@ export default function DocsPage() {
               <span className="font-semibold">{t("quickStartStep1Title")}</span>
               <p className="text-text-muted mt-1">
                 {t("quickStartStep1Prefix")}{" "}
-                <code className="px-1 rounded bg-bg-subtle">npx omniroute</code>{" "}
+                <code className="px-1 rounded bg-bg-subtle">npx airarouter</code>{" "}
                 {t("quickStartStep1Middle")}{" "}
                 <code className="px-1 rounded bg-bg-subtle">npm start</code>.
               </p>
@@ -418,7 +418,7 @@ export default function DocsPage() {
                 <li>{t("protocolMcpStep3")}</li>
               </ol>
               <pre className="mt-3 p-3 rounded-lg border border-border bg-bg overflow-x-auto text-xs">
-                <code>{`omniroute --mcp`}</code>
+                <code>{`airarouter --mcp`}</code>
               </pre>
             </article>
 

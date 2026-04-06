@@ -316,17 +316,17 @@ function attachLogMeta(
   );
   if (Object.keys(compactMeta).length === 0) return payload;
   if (!payload || typeof payload !== "object" || Array.isArray(payload)) {
-    return { _omniroute: compactMeta, _payload: payload ?? null };
+    return { _airarouter: compactMeta, _payload: payload ?? null };
   }
   const existing =
-    payload._omniroute &&
-    typeof payload._omniroute === "object" &&
-    !Array.isArray(payload._omniroute)
-      ? payload._omniroute
+    payload._airarouter &&
+    typeof payload._airarouter === "object" &&
+    !Array.isArray(payload._airarouter)
+      ? payload._airarouter
       : {};
   return {
     ...payload,
-    _omniroute: {
+    _airarouter: {
       ...existing,
       ...compactMeta,
     },
@@ -482,7 +482,7 @@ export async function handleChatCore({
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": getCorsOrigin(),
-          "X-OmniRoute-Idempotent": "true",
+          "X-AiraRouter-Idempotent": "true",
         },
       }),
     };
@@ -694,7 +694,7 @@ export async function handleChatCore({
           headers: {
             "Content-Type": "application/json",
             "Access-Control-Allow-Origin": getCorsOrigin(),
-            "X-OmniRoute-Cache": "HIT",
+            "X-AiraRouter-Cache": "HIT",
           },
         }),
       };
@@ -2063,7 +2063,7 @@ export async function handleChatCore({
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": getCorsOrigin(),
-          "X-OmniRoute-Cache": "MISS",
+          "X-AiraRouter-Cache": "MISS",
         },
       }),
     };
@@ -2218,7 +2218,7 @@ export async function handleChatCore({
     // Chain: provider → transform → progress → client
     const transformedBody = pipeWithDisconnect(providerResponse, transformStream, streamController);
     finalStream = transformedBody.pipeThrough(progressTransform);
-    responseHeaders["X-OmniRoute-Progress"] = "enabled";
+    responseHeaders["X-AiraRouter-Progress"] = "enabled";
   } else {
     finalStream = pipeWithDisconnect(providerResponse, transformStream, streamController);
   }

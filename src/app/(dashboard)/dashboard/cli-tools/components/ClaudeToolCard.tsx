@@ -136,9 +136,9 @@ export default function ClaudeToolCard({
       const env: any = { ANTHROPIC_BASE_URL: getEffectiveBaseUrl() };
 
       // (#523) Prefer keyId lookup so the backend writes the real key to disk.
-      // Fall back to sk_omniroute for localhost-only setups without a key.
+      // Fall back to sk_airarouter for localhost-only setups without a key.
       const selectedKeyId = selectedApiKey?.trim() || (apiKeys?.length > 0 ? apiKeys[0].id : null);
-      const skOmnirouteFallback = !cloudEnabled ? "sk_omniroute" : null;
+      const skOmnirouteFallback = !cloudEnabled ? "sk_airarouter" : null;
 
       if (!selectedKeyId && skOmnirouteFallback) {
         env.ANTHROPIC_AUTH_TOKEN = skOmnirouteFallback;
@@ -212,7 +212,7 @@ export default function ClaudeToolCard({
       selectedApiKey && selectedApiKey.trim()
         ? selectedApiKey
         : !cloudEnabled
-          ? "sk_omniroute"
+          ? "sk_airarouter"
           : "<API_KEY_FROM_DASHBOARD>";
     const env = { ANTHROPIC_BASE_URL: getEffectiveBaseUrl(), ANTHROPIC_AUTH_TOKEN: keyToUse };
     tool.defaultModels.forEach((model) => {
@@ -492,7 +492,7 @@ export default function ClaudeToolCard({
                   variant="outline"
                   size="sm"
                   onClick={handleResetSettings}
-                  disabled={!claudeStatus?.hasOmniRoute}
+                  disabled={!claudeStatus?.hasAiraRouter}
                   loading={restoring}
                 >
                   <span className="material-symbols-outlined text-[14px] mr-1">restore</span>

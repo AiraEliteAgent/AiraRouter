@@ -1,20 +1,20 @@
-# OmniRoute MCP Server Documentation
+# AiraRouter MCP Server Documentation
 
 > Model Context Protocol server with 16 intelligent tools
 
 ## Installation
 
-OmniRoute MCP is built-in. Start it with:
+AiraRouter MCP is built-in. Start it with:
 
 ```bash
-omniroute --mcp
+airarouter --mcp
 ```
 
 Or via the open-sse transport:
 
 ```bash
 # HTTP streamable transport (port 20130)
-omniroute --dev  # MCP auto-starts on /mcp endpoint
+airarouter --dev  # MCP auto-starts on /mcp endpoint
 ```
 
 ## IDE Configuration
@@ -25,29 +25,29 @@ See [IDE Configs](integrations/ide-configs.md) for Antigravity, Cursor, Copilot,
 
 ## Essential Tools (8)
 
-| Tool                            | Description                              |
-| :------------------------------ | :--------------------------------------- |
-| `omniroute_get_health`          | Gateway health, circuit breakers, uptime |
-| `omniroute_list_combos`         | All configured combos with models        |
-| `omniroute_get_combo_metrics`   | Performance metrics for a specific combo |
-| `omniroute_switch_combo`        | Switch active combo by ID/name           |
-| `omniroute_check_quota`         | Quota status per provider or all         |
-| `omniroute_route_request`       | Send a chat completion through OmniRoute |
-| `omniroute_cost_report`         | Cost analytics for a time period         |
-| `omniroute_list_models_catalog` | Full model catalog with capabilities     |
+| Tool                             | Description                               |
+| :------------------------------- | :---------------------------------------- |
+| `airarouter_get_health`          | Gateway health, circuit breakers, uptime  |
+| `airarouter_list_combos`         | All configured combos with models         |
+| `airarouter_get_combo_metrics`   | Performance metrics for a specific combo  |
+| `airarouter_switch_combo`        | Switch active combo by ID/name            |
+| `airarouter_check_quota`         | Quota status per provider or all          |
+| `airarouter_route_request`       | Send a chat completion through AiraRouter |
+| `airarouter_cost_report`         | Cost analytics for a time period          |
+| `airarouter_list_models_catalog` | Full model catalog with capabilities      |
 
 ## Advanced Tools (8)
 
-| Tool                               | Description                                                 |
-| :--------------------------------- | :---------------------------------------------------------- |
-| `omniroute_simulate_route`         | Dry-run routing simulation with fallback tree               |
-| `omniroute_set_budget_guard`       | Session budget with degrade/block/alert actions             |
-| `omniroute_set_resilience_profile` | Apply conservative/balanced/aggressive preset               |
-| `omniroute_test_combo`             | Live-test all models in a combo via a real upstream request |
-| `omniroute_get_provider_metrics`   | Detailed metrics for one provider                           |
-| `omniroute_best_combo_for_task`    | Task-fitness recommendation with alternatives               |
-| `omniroute_explain_route`          | Explain a past routing decision                             |
-| `omniroute_get_session_snapshot`   | Full session state: costs, tokens, errors                   |
+| Tool                                | Description                                                 |
+| :---------------------------------- | :---------------------------------------------------------- |
+| `airarouter_simulate_route`         | Dry-run routing simulation with fallback tree               |
+| `airarouter_set_budget_guard`       | Session budget with degrade/block/alert actions             |
+| `airarouter_set_resilience_profile` | Apply conservative/balanced/aggressive preset               |
+| `airarouter_test_combo`             | Live-test all models in a combo via a real upstream request |
+| `airarouter_get_provider_metrics`   | Detailed metrics for one provider                           |
+| `airarouter_best_combo_for_task`    | Task-fitness recommendation with alternatives               |
+| `airarouter_explain_route`          | Explain a past routing decision                             |
+| `airarouter_get_session_snapshot`   | Full session state: costs, tokens, errors                   |
 
 ## Authentication
 

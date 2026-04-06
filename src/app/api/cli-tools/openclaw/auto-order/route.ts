@@ -52,7 +52,7 @@ export async function GET() {
         allow_fallbacks: true,
       },
       generated_at: new Date().toISOString(),
-      source: "omniroute-auto-combo",
+      source: "airarouter-auto-combo",
     });
   } catch {
     return NextResponse.json({
@@ -61,7 +61,7 @@ export async function GET() {
         allow_fallbacks: true,
       },
       generated_at: new Date().toISOString(),
-      source: "omniroute-fallback",
+      source: "airarouter-fallback",
     });
   }
 }

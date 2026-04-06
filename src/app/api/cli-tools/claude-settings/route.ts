@@ -53,7 +53,7 @@ export async function GET() {
     }
 
     const settings = await readSettings();
-    const hasOmniRoute = !!settings?.env?.ANTHROPIC_BASE_URL;
+    const hasAiraRouter = !!settings?.env?.ANTHROPIC_BASE_URL;
 
     return NextResponse.json({
       installed: runtime.installed,
@@ -63,7 +63,7 @@ export async function GET() {
       runtimeMode: runtime.runtimeMode,
       reason: runtime.reason,
       settings: settings,
-      hasOmniRoute: hasOmniRoute,
+      hasAiraRouter: hasAiraRouter,
       settingsPath: getClaudeSettingsPath(),
     });
   } catch (error) {
@@ -113,7 +113,7 @@ export async function POST(request: Request) {
           env.ANTHROPIC_AUTH_TOKEN = keyRecord.key as string;
         }
       } catch {
-        // Non-critical: fall back to whatever value was in env (e.g. sk_omniroute)
+        // Non-critical: fall back to whatever value was in env (e.g. sk_airarouter)
       }
     }
 

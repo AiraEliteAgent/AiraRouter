@@ -27,8 +27,8 @@ export const MemoryClearSchema = z.object({
 });
 
 export const memoryTools = {
-  omniroute_memory_search: {
-    name: "omniroute_memory_search",
+  airarouter_memory_search: {
+    name: "airarouter_memory_search",
     description: "Search memories by query, type, or API key with token budget enforcement",
     inputSchema: MemorySearchSchema,
     handler: async (args: z.infer<typeof MemorySearchSchema>) => {
@@ -59,8 +59,8 @@ export const memoryTools = {
     },
   },
 
-  omniroute_memory_add: {
-    name: "omniroute_memory_add",
+  airarouter_memory_add: {
+    name: "airarouter_memory_add",
     description: "Add a new memory entry",
     inputSchema: MemoryAddSchema,
     handler: async (args: z.infer<typeof MemoryAddSchema>) => {
@@ -84,8 +84,8 @@ export const memoryTools = {
     },
   },
 
-  omniroute_memory_clear: {
-    name: "omniroute_memory_clear",
+  airarouter_memory_clear: {
+    name: "airarouter_memory_clear",
     description: "Clear memories for an API key, optionally filtered by type or age",
     inputSchema: MemoryClearSchema,
     handler: async (args: z.infer<typeof MemoryClearSchema>) => {

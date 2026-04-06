@@ -40,7 +40,7 @@ const MIGRATIONS_DIR = resolveMigrationsDir();
  */
 function ensureMigrationsTable(db: Database.Database): void {
   db.exec(`
-    CREATE TABLE IF NOT EXISTS _omniroute_migrations (
+    CREATE TABLE IF NOT EXISTS _airarouter_migrations (
       version TEXT PRIMARY KEY,
       name TEXT NOT NULL,
       applied_at TEXT NOT NULL DEFAULT (datetime('now'))
@@ -74,7 +74,7 @@ function getMigrationFiles(): Array<{ version: string; name: string; path: strin
  * Get list of already-applied migration versions.
  */
 function getAppliedVersions(db: Database.Database): Set<string> {
-  const rows = db.prepare("SELECT version FROM _omniroute_migrations").all() as Array<{
+  const rows = db.prepare("SELECT version FROM _airarouter_migrations").all() as Array<{
     version: string;
   }>;
   return new Set(rows.map((r) => r.version));
@@ -98,7 +98,7 @@ export function runMigrations(db: Database.Database): number {
 
     const applyMigration = db.transaction(() => {
       db.exec(sql);
-      db.prepare("INSERT INTO _omniroute_migrations (version, name) VALUES (?, ?)").run(
+      db.prepare("INSERT INTO _airarouter_migrations (version, name) VALUES (?, ?)").run(
         migration.version,
         migration.name
       );
@@ -132,7 +132,7 @@ export function getMigrationStatus(db: Database.Database): {
   ensureMigrationsTable(db);
 
   const appliedRows = db
-    .prepare("SELECT version, name, applied_at FROM _omniroute_migrations ORDER BY version")
+    .prepare("SELECT version, name, applied_at FROM _airarouter_migrations ORDER BY version")
     .all() as Array<{ version: string; name: string; applied_at: string }>;
 
   const appliedVersions = new Set(appliedRows.map((r) => r.version));

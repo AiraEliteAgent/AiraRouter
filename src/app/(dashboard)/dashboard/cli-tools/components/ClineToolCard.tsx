@@ -41,7 +41,7 @@ export default function ClineToolCard({
 
   const getConfigStatus = () => {
     if (!cliReady) return null;
-    if (!clineStatus.hasOmniRoute) return "not_configured";
+    if (!clineStatus.hasAiraRouter) return "not_configured";
     const baseUrlVal = clineStatus.settings?.openAiBaseUrl || "";
     const localMatch = baseUrlVal.includes("localhost") || baseUrlVal.includes("127.0.0.1");
     const cloudMatch = cloudEnabled && CLOUD_URL && baseUrlVal.startsWith(CLOUD_URL);
@@ -157,7 +157,7 @@ export default function ClineToolCard({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           baseUrl: normalizedBaseUrl,
-          apiKey: selectedApiKey || "sk_omniroute",
+          apiKey: selectedApiKey || "sk_airarouter",
           model: selectedModel,
         }),
       });
@@ -309,7 +309,7 @@ export default function ClineToolCard({
                       </span>
                       <div className="flex flex-col gap-1">
                         <p className="text-sm text-green-700 dark:text-green-300">
-                          {t("omnirouteConfiguredOpenAiCompatible")}
+                          {t("airarouterConfiguredOpenAiCompatible")}
                         </p>
                         <p className="text-xs text-text-muted">
                           {t("provider")}: <strong>openai</strong> • {t("model")}:{" "}

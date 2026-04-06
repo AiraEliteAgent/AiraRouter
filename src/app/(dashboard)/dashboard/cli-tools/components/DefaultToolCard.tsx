@@ -43,9 +43,9 @@ export default function DefaultToolCard({
 
   // Persist and restore model selection per tool via localStorage
   useEffect(() => {
-    const savedModel = localStorage.getItem(`omniroute-cli-model-${toolId}`);
+    const savedModel = localStorage.getItem(`airarouter-cli-model-${toolId}`);
     if (savedModel) setModelValue(savedModel);
-    const savedKey = localStorage.getItem(`omniroute-cli-key-${toolId}`);
+    const savedKey = localStorage.getItem(`airarouter-cli-key-${toolId}`);
     if (savedKey && apiKeys?.some((k) => k.key === savedKey)) setSelectedApiKey(savedKey);
   }, [toolId, apiKeys]);
 
@@ -53,9 +53,9 @@ export default function DefaultToolCard({
     (value) => {
       setModelValue(value);
       if (value) {
-        localStorage.setItem(`omniroute-cli-model-${toolId}`, value);
+        localStorage.setItem(`airarouter-cli-model-${toolId}`, value);
       } else {
-        localStorage.removeItem(`omniroute-cli-model-${toolId}`);
+        localStorage.removeItem(`airarouter-cli-model-${toolId}`);
       }
     },
     [toolId]
@@ -65,7 +65,7 @@ export default function DefaultToolCard({
     (value) => {
       setSelectedApiKey(value);
       if (value) {
-        localStorage.setItem(`omniroute-cli-key-${toolId}`, value);
+        localStorage.setItem(`airarouter-cli-key-${toolId}`, value);
       }
     },
     [toolId]
@@ -86,7 +86,7 @@ export default function DefaultToolCard({
       selectedApiKey && selectedApiKey.trim()
         ? selectedApiKey
         : !cloudEnabled
-          ? "sk_omniroute"
+          ? "sk_airarouter"
           : t("yourApiKeyPlaceholder");
 
     const normalizedBaseUrl = baseUrl || "http://localhost:20128";
@@ -122,7 +122,7 @@ export default function DefaultToolCard({
         selectedApiKey && selectedApiKey.trim()
           ? selectedApiKey
           : !cloudEnabled
-            ? "sk_omniroute"
+            ? "sk_airarouter"
             : "";
 
       const normalizedBaseUrl = baseUrl || "http://localhost:20128";
@@ -182,7 +182,7 @@ export default function DefaultToolCard({
           </>
         ) : (
           <span className="text-sm text-text-muted">
-            {cloudEnabled ? t("noApiKeysCreateOne") : "sk_omniroute"}
+            {cloudEnabled ? t("noApiKeysCreateOne") : "sk_airarouter"}
           </span>
         )}
       </div>

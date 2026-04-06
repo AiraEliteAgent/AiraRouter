@@ -35,7 +35,7 @@ const LOG_PREFIX = "[LocalHealthCheck]";
 // ── State (globalThis survives HMR re-evaluation) ───────────────────────
 
 declare global {
-  var __omnirouteLocalHC:
+  var __airarouterLocalHC:
     | {
         initialized: boolean;
         sweepTimer: ReturnType<typeof setTimeout> | null;
@@ -46,15 +46,15 @@ declare global {
 }
 
 function getLHCState() {
-  if (!globalThis.__omnirouteLocalHC) {
-    globalThis.__omnirouteLocalHC = {
+  if (!globalThis.__airarouterLocalHC) {
+    globalThis.__airarouterLocalHC = {
       initialized: false,
       sweepTimer: null,
       healthCache: new Map(),
       sweepInProgress: false,
     };
   }
-  return globalThis.__omnirouteLocalHC;
+  return globalThis.__airarouterLocalHC;
 }
 
 const healthCache = getLHCState().healthCache;

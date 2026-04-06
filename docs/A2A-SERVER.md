@@ -1,6 +1,6 @@
-# OmniRoute A2A Server Documentation
+# AiraRouter A2A Server Documentation
 
-> Agent-to-Agent Protocol v0.3 — OmniRoute as an intelligent routing agent
+> Agent-to-Agent Protocol v0.3 — AiraRouter as an intelligent routing agent
 
 ## Agent Discovery
 
@@ -8,7 +8,7 @@
 curl http://localhost:20128/.well-known/agent.json
 ```
 
-Returns the Agent Card describing OmniRoute's capabilities, skills, and authentication requirements.
+Returns the Agent Card describing AiraRouter's capabilities, skills, and authentication requirements.
 
 ---
 
@@ -118,10 +118,10 @@ curl -X POST http://localhost:20128/a2a \
 
 ## Available Skills
 
-| Skill              | Description                                                                                                                     |
-| :----------------- | :------------------------------------------------------------------------------------------------------------------------------ |
-| `smart-routing`    | Routes prompts through OmniRoute's intelligent pipeline. Returns response with routing explanation, cost, and resilience trace. |
-| `quota-management` | Answers natural-language queries about provider quotas, suggests free combos, and provides quota rankings.                      |
+| Skill              | Description                                                                                                                      |
+| :----------------- | :------------------------------------------------------------------------------------------------------------------------------- |
+| `smart-routing`    | Routes prompts through AiraRouter's intelligent pipeline. Returns response with routing explanation, cost, and resilience trace. |
+| `quota-management` | Answers natural-language queries about provider quotas, suggests free combos, and provides quota rankings.                       |
 
 ---
 

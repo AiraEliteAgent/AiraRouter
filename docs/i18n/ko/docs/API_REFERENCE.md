@@ -4,7 +4,7 @@
 
 ---
 
-Complete reference for all OmniRoute API endpoints.
+Complete reference for all AiraRouter API endpoints.
 
 ---
 
@@ -40,18 +40,18 @@ Content-Type: application/json
 
 ### Custom Headers
 
-| Header                   | Direction | Description                                      |
-| ------------------------ | --------- | ------------------------------------------------ |
-| `X-OmniRoute-No-Cache`   | Request   | Set to `true` to bypass cache                    |
-| `X-OmniRoute-Progress`   | Request   | Set to `true` for progress events                |
-| `X-Session-Id`           | Request   | Sticky session key for external session affinity |
-| `x_session_id`           | Request   | Underscore variant also accepted (direct HTTP)   |
-| `Idempotency-Key`        | Request   | Dedup key (5s window)                            |
-| `X-Request-Id`           | Request   | Alternative dedup key                            |
-| `X-OmniRoute-Cache`      | Response  | `HIT` or `MISS` (non-streaming)                  |
-| `X-OmniRoute-Idempotent` | Response  | `true` if deduplicated                           |
-| `X-OmniRoute-Progress`   | Response  | `enabled` if progress tracking on                |
-| `X-OmniRoute-Session-Id` | Response  | Effective session ID used by OmniRoute           |
+| Header                    | Direction | Description                                      |
+| ------------------------- | --------- | ------------------------------------------------ |
+| `X-AiraRouter-No-Cache`   | Request   | Set to `true` to bypass cache                    |
+| `X-AiraRouter-Progress`   | Request   | Set to `true` for progress events                |
+| `X-Session-Id`            | Request   | Sticky session key for external session affinity |
+| `x_session_id`            | Request   | Underscore variant also accepted (direct HTTP)   |
+| `Idempotency-Key`         | Request   | Dedup key (5s window)                            |
+| `X-Request-Id`            | Request   | Alternative dedup key                            |
+| `X-AiraRouter-Cache`      | Response  | `HIT` or `MISS` (non-streaming)                  |
+| `X-AiraRouter-Idempotent` | Response  | `true` if deduplicated                           |
+| `X-AiraRouter-Progress`   | Response  | `enabled` if progress tracking on                |
+| `X-AiraRouter-Session-Id` | Response  | Effective session ID used by AiraRouter          |
 
 > Nginx note: if you rely on underscore headers (for example `x_session_id`), enable `underscores_in_headers on;`.
 

@@ -634,7 +634,7 @@ export default function CachePage() {
                       {t.rich("behaviorBypass", {
                         header: () => (
                           <code className="bg-surface px-1 py-0.5 rounded text-xs font-mono">
-                            X-OmniRoute-No-Cache: true
+                            X-AiraRouter-No-Cache: true
                           </code>
                         ),
                       })}

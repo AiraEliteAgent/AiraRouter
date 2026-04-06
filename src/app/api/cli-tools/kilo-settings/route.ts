@@ -26,14 +26,14 @@ const readAuth = async () => {
   }
 };
 
-// Check if OmniRoute OpenAI-compatible provider is configured
-const hasOmniRouteConfig = (auth) => {
+// Check if AiraRouter OpenAI-compatible provider is configured
+const hasAiraRouterConfig = (auth) => {
   if (!auth) return false;
-  const routerEntry = auth["openai-compatible"] || auth["omniroute"];
+  const routerEntry = auth["openai-compatible"] || auth["airarouter"];
   if (!routerEntry) return false;
   const baseUrl = routerEntry.baseUrl || routerEntry.baseURL || "";
   return (
-    baseUrl.includes("localhost") || baseUrl.includes("127.0.0.1") || baseUrl.includes("omniroute")
+    baseUrl.includes("localhost") || baseUrl.includes("127.0.0.1") || baseUrl.includes("airarouter")
   );
 };
 
@@ -98,7 +98,7 @@ export async function GET() {
         auth: auth ? Object.keys(auth) : [],
         extensionSettings,
       },
-      hasOmniRoute: hasOmniRouteConfig(auth),
+      hasAiraRouter: hasAiraRouterConfig(auth),
       authPath: AUTH_PATH,
     });
   } catch (error) {
@@ -107,7 +107,7 @@ export async function GET() {
   }
 }
 
-// POST - Configure Kilo Code to use OmniRoute as OpenAI-compatible provider
+// POST - Configure Kilo Code to use AiraRouter as OpenAI-compatible provider
 export async function POST(request) {
   let rawBody;
   try {
@@ -168,10 +168,10 @@ export async function POST(request) {
     // Normalize baseUrl
     const normalizedBaseUrl = baseUrl.endsWith("/v1") ? baseUrl : `${baseUrl}/v1`;
 
-    // Add/update OmniRoute as openai-compatible provider
+    // Add/update AiraRouter as openai-compatible provider
     auth["openai-compatible"] = {
       type: "api-key",
-      apiKey: apiKey || "sk_omniroute",
+      apiKey: apiKey || "sk_airarouter",
       baseUrl: normalizedBaseUrl,
       model: model,
     };
@@ -197,9 +197,9 @@ export async function POST(request) {
 
       // Set custom provider config for the extension
       vscodeSettings["kilocode.customProvider"] = {
-        name: "OmniRoute",
+        name: "AiraRouter",
         baseURL: normalizedBaseUrl,
-        apiKey: apiKey || "sk_omniroute",
+        apiKey: apiKey || "sk_airarouter",
       };
       vscodeSettings["kilocode.defaultModel"] = model;
 
@@ -226,7 +226,7 @@ export async function POST(request) {
   }
 }
 
-// DELETE - Remove OmniRoute config from Kilo
+// DELETE - Remove AiraRouter config from Kilo
 export async function DELETE() {
   try {
     const writeGuard = ensureCliConfigWriteAllowed();
@@ -249,9 +249,9 @@ export async function DELETE() {
       throw error;
     }
 
-    // Remove OmniRoute provider
+    // Remove AiraRouter provider
     delete auth["openai-compatible"];
-    delete auth["omniroute"];
+    delete auth["airarouter"];
 
     await fs.writeFile(AUTH_PATH, JSON.stringify(auth, null, 2));
 
@@ -282,7 +282,7 @@ export async function DELETE() {
 
     return NextResponse.json({
       success: true,
-      message: "OmniRoute settings removed from Kilo Code",
+      message: "AiraRouter settings removed from Kilo Code",
     });
   } catch (error) {
     console.log("Error resetting kilo settings:", error);

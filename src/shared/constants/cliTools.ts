@@ -236,7 +236,7 @@ export const CLI_TOOLS = {
       },
       {
         type: "warning",
-        text: 'Thinking variant example: opencode run "implement this feature" --model omniroute/claude-sonnet-4-5-thinking --variant high',
+        text: 'Thinking variant example: opencode run "implement this feature" --model airarouter/claude-sonnet-4-5-thinking --variant high',
       },
     ],
     guideSteps: [
@@ -254,8 +254,8 @@ export const CLI_TOOLS = {
       language: "json",
       code: `{
   "providers": {
-    "omniroute": {
-      "name": "OmniRoute",
+    "airarouter": {
+      "name": "AiraRouter",
       "api": "openai",
       "baseURL": "{{baseUrl}}",
       "apiKey": "{{apiKey}}",

@@ -3,7 +3,7 @@ import { getProviderConnections } from "@/lib/localDb";
 import {
   getLearnedLimits,
   getRateLimitStatus,
-} from "@omniroute/open-sse/services/rateLimitManager.ts";
+} from "@airarouter/open-sse/services/rateLimitManager.ts";
 import {
   normalizeQuotaResponse,
   sanitizeQuotaProvider,

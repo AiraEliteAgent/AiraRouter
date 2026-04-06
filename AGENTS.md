@@ -1,4 +1,4 @@
-# omniroute — Agent Guidelines
+# airarouter — Agent Guidelines
 
 ## Project
 
@@ -11,7 +11,7 @@ with **MCP Server** (25 tools), **A2A v0.3 Protocol**, and **Electron desktop ap
 
 - **Runtime**: Next.js 16 (App Router), Node.js ≥18 <24, ES Modules (`"type": "module"`)
 - **Language**: TypeScript 5.9 (`src/`) + JavaScript (`open-sse/`, `electron/`)
-- **Database**: better-sqlite3 (SQLite) — `DATA_DIR` configurable, default `~/.omniroute/`
+- **Database**: better-sqlite3 (SQLite) — `DATA_DIR` configurable, default `~/.airarouter/`
 - **Streaming**: SSE via `open-sse` internal workspace package
 - **Styling**: Tailwind CSS v4
 - **i18n**: next-intl with 30 languages
@@ -80,7 +80,7 @@ Always run `prettier --write` on changed files.
 
 - **Target**: ES2022 · **Module**: `esnext` · **Resolution**: `bundler`
 - `strict: false` — prefer explicit types, don't rely on inference
-- Path aliases: `@/*` → `src/`, `@omniroute/open-sse` → `open-sse/`, `@omniroute/open-sse/*` → `open-sse/*`
+- Path aliases: `@/*` → `src/`, `@airarouter/open-sse` → `open-sse/`, `@airarouter/open-sse/*` → `open-sse/*`
 
 ### ESLint Rules
 
@@ -101,7 +101,7 @@ Always run `prettier --write` on changed files.
 
 ### Imports
 
-- **Order**: external → internal (`@/`, `@omniroute/open-sse`) → relative (`./`, `../`)
+- **Order**: external → internal (`@/`, `@airarouter/open-sse`) → relative (`./`, `../`)
 - **No barrel imports** from `localDb.ts` — import from the specific `db/` module instead
 
 ### Error Handling

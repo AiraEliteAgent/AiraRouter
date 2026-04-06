@@ -25,7 +25,7 @@ export async function GET(request: Request) {
     }
 
     const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
-    const exportFilename = `omniroute-backup-${timestamp}.sqlite`;
+    const exportFilename = `airarouter-backup-${timestamp}.sqlite`;
     const tmpDir = os.tmpdir();
     const tmpPath = path.join(tmpDir, exportFilename);
 

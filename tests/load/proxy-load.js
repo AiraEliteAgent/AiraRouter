@@ -1,5 +1,5 @@
 /**
- * OmniRoute — k6 Load / Performance Test (T-5)
+ * AiraRouter — k6 Load / Performance Test (T-5)
  *
  * Tests the proxy endpoint under sustained load to measure:
  *   - Request throughput (RPS)
@@ -9,7 +9,7 @@
  *
  * Usage:
  *   k6 run tests/load/proxy-load.js
- *   k6 run tests/load/proxy-load.js --env BASE_URL=https://llms.omniroute.online
+ *   k6 run tests/load/proxy-load.js --env BASE_URL=https://llms.airarouter.online
  *   k6 run tests/load/proxy-load.js --env VUS=50 --env DURATION=120s
  *
  * Prerequisites:

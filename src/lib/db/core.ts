@@ -37,7 +37,7 @@ if (!isCloud && !fs.existsSync(DATA_DIR)) {
     console.warn(
       `[DB] Cannot create data directory '${DATA_DIR}': ${msg}\n` +
         `[DB] Set the DATA_DIR environment variable to a writable path, e.g.:\n` +
-        `[DB]   DATA_DIR=/path/to/writable/dir omniroute`
+        `[DB]   DATA_DIR=/path/to/writable/dir airarouter`
     );
   }
 }
@@ -309,18 +309,18 @@ export function cleanNulls(obj: unknown): JsonRecord {
 // Module-level `let` resets on every webpack recompile, causing connection leaks.
 
 declare global {
-  var __omnirouteDb: import("better-sqlite3").Database | undefined;
+  var __airarouterDb: import("better-sqlite3").Database | undefined;
 }
 
 function getDb(): SqliteDatabase | null {
-  return globalThis.__omnirouteDb ?? null;
+  return globalThis.__airarouterDb ?? null;
 }
 
 function setDb(db: SqliteDatabase | null): void {
   if (db) {
-    globalThis.__omnirouteDb = db;
+    globalThis.__airarouterDb = db;
   } else {
-    delete globalThis.__omnirouteDb;
+    delete globalThis.__airarouterDb;
   }
 }
 
@@ -504,12 +504,12 @@ export function getDbInstance(): SqliteDatabase {
   // Auto-seed 001 as applied (the inline SCHEMA_SQL already created these tables)
   // then run any new migrations (002+)
   db.exec(`
-    CREATE TABLE IF NOT EXISTS _omniroute_migrations (
+    CREATE TABLE IF NOT EXISTS _airarouter_migrations (
       version TEXT PRIMARY KEY,
       name TEXT NOT NULL,
       applied_at TEXT NOT NULL DEFAULT (datetime('now'))
     );
-    INSERT OR IGNORE INTO _omniroute_migrations (version, name)
+    INSERT OR IGNORE INTO _airarouter_migrations (version, name)
     VALUES ('001', 'initial_schema');
   `);
   runMigrations(db);

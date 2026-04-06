@@ -171,7 +171,7 @@ const STRATEGY_RECOMMENDATIONS_FALLBACK = {
   },
 };
 
-const COMBO_USAGE_GUIDE_STORAGE_KEY = "omniroute:combos:hide-usage-guide";
+const COMBO_USAGE_GUIDE_STORAGE_KEY = "airarouter:combos:hide-usage-guide";
 
 const COMBO_TEMPLATE_FALLBACK = {
   title: "Quick templates",

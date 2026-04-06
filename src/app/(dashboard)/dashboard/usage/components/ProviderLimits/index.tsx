@@ -16,8 +16,8 @@ import Badge from "@/shared/components/Badge";
 import { CardSkeleton } from "@/shared/components/Loading";
 import { USAGE_SUPPORTED_PROVIDERS } from "@/shared/constants/providers";
 
-const LS_GROUP_BY = "omniroute:limits:groupBy";
-const LS_EXPANDED_GROUPS = "omniroute:limits:expandedGroups";
+const LS_GROUP_BY = "airarouter:limits:groupBy";
+const LS_EXPANDED_GROUPS = "airarouter:limits:expandedGroups";
 
 const MIN_FETCH_INTERVAL_MS = 30000; // Debounce per-connection fetches
 const QUOTA_BAR_GREEN_THRESHOLD = 50;

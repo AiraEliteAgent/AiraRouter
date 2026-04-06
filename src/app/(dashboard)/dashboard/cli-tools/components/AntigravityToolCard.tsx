@@ -96,7 +96,7 @@ export default function AntigravityToolCard({
       const keyToUse =
         selectedApiKey?.trim() ||
         (apiKeys?.length > 0 ? apiKeys[0].key : null) ||
-        (!cloudEnabled ? "sk_omniroute" : null);
+        (!cloudEnabled ? "sk_airarouter" : null);
 
       const res = await fetch("/api/cli-tools/antigravity-mitm", {
         method: "POST",

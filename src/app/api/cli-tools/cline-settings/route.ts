@@ -37,8 +37,8 @@ const readSecrets = async () => {
   }
 };
 
-// Check if OmniRoute is configured as OpenAI-compatible provider
-const hasOmniRouteConfig = (globalState: any) => {
+// Check if AiraRouter is configured as OpenAI-compatible provider
+const hasAiraRouterConfig = (globalState: any) => {
   if (!globalState) return false;
   const isOpenAi =
     globalState.actModeApiProvider === "openai" || globalState.planModeApiProvider === "openai";
@@ -47,7 +47,7 @@ const hasOmniRouteConfig = (globalState: any) => {
     isOpenAi &&
     (baseUrl.includes("localhost") ||
       baseUrl.includes("127.0.0.1") ||
-      baseUrl.includes("omniroute"))
+      baseUrl.includes("airarouter"))
   );
 };
 
@@ -89,7 +89,7 @@ export async function GET() {
         openAiModelId: globalState?.openAiModelId,
         planModeOpenAiModelId: globalState?.planModeOpenAiModelId,
       },
-      hasOmniRoute: hasOmniRouteConfig(globalState),
+      hasAiraRouter: hasAiraRouterConfig(globalState),
       globalStatePath: GLOBAL_STATE_PATH,
       secretsPath: SECRETS_PATH,
     });
@@ -99,7 +99,7 @@ export async function GET() {
   }
 }
 
-// POST - Configure Cline to use OmniRoute as OpenAI-compatible provider
+// POST - Configure Cline to use AiraRouter as OpenAI-compatible provider
 export async function POST(request: Request) {
   let rawBody;
   try {
@@ -177,7 +177,7 @@ export async function POST(request: Request) {
       /* No existing secrets */
     }
 
-    secrets.openAiApiKey = apiKey || "sk_omniroute";
+    secrets.openAiApiKey = apiKey || "sk_airarouter";
 
     await fs.writeFile(SECRETS_PATH, JSON.stringify(secrets, null, 2));
 
@@ -199,7 +199,7 @@ export async function POST(request: Request) {
   }
 }
 
-// DELETE - Remove OmniRoute OpenAI-compatible provider config
+// DELETE - Remove AiraRouter OpenAI-compatible provider config
 export async function DELETE() {
   try {
     const writeGuard = ensureCliConfigWriteAllowed();
@@ -256,7 +256,7 @@ export async function DELETE() {
 
     return NextResponse.json({
       success: true,
-      message: "OmniRoute settings removed from Cline",
+      message: "AiraRouter settings removed from Cline",
     });
   } catch (error) {
     console.log("Error resetting cline settings:", error);

@@ -15,7 +15,7 @@ import {
   getAccessToken,
   supportsTokenRefresh,
   isUnrecoverableRefreshError,
-} from "@omniroute/open-sse/services/tokenRefresh.ts";
+} from "@airarouter/open-sse/services/tokenRefresh.ts";
 
 // ── Constants ────────────────────────────────────────────────────────────────
 const TICK_MS = 60 * 1000; // sweep interval: every 60 seconds
@@ -104,16 +104,16 @@ export function clearHealthCheckLogCache() {
 // ── Singleton guard (globalThis survives HMR re-evaluation) ─────────────────
 
 declare global {
-  var __omnirouteTokenHC:
+  var __airarouterTokenHC:
     | { initialized: boolean; interval: ReturnType<typeof setInterval> | null }
     | undefined;
 }
 
 function getHCState() {
-  if (!globalThis.__omnirouteTokenHC) {
-    globalThis.__omnirouteTokenHC = { initialized: false, interval: null };
+  if (!globalThis.__airarouterTokenHC) {
+    globalThis.__airarouterTokenHC = { initialized: false, interval: null };
   }
-  return globalThis.__omnirouteTokenHC;
+  return globalThis.__airarouterTokenHC;
 }
 
 /**
