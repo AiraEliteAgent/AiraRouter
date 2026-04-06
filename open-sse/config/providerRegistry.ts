@@ -1025,6 +1025,24 @@ export const REGISTRY: Record<string, RegistryEntry> = {
     ],
   },
 
+  beeknoee: {
+    id: "beeknoee",
+    alias: "beeknoee",
+    format: "openai",
+    executor: "default",
+    baseUrl: "https://api.beeknoee.com/v1/chat/completions",
+    authType: "apikey",
+    authHeader: "bearer",
+    models: [
+      { id: "gpt-4o", name: "GPT-4o" },
+      { id: "gpt-4o-mini", name: "GPT-4o Mini" },
+      { id: "claude-3-5-sonnet-20241022", name: "Claude 3.5 Sonnet" },
+      { id: "claude-3-5-haiku-20241022", name: "Claude 3.5 Haiku" },
+      { id: "gemini-2.0-flash-exp", name: "Gemini 2.0 Flash" },
+      { id: "gemini-exp-1206", name: "Gemini Exp 1206" },
+    ],
+  },
+
   "ollama-cloud": {
     id: "ollama-cloud",
     alias: "ollamacloud",

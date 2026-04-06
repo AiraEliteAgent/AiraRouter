@@ -264,6 +264,17 @@ export const APIKEY_PROVIDERS = {
     hasFree: true,
     freeNote: "Free: 1M tokens/day, 60K TPM — world's fastest inference",
   },
+  beeknoee: {
+    id: "beeknoee",
+    alias: "beeknoee",
+    name: "Beeknoee AI",
+    icon: "psychology",
+    color: "#FF6B35",
+    textIcon: "BK",
+    website: "https://platform.beeknoee.com",
+    hasFree: true,
+    freeNote: "Free tier available with multiple API key support",
+  },
   cohere: {
     id: "cohere",
     alias: "cohere",

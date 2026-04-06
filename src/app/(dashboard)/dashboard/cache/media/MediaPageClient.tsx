@@ -74,6 +74,14 @@ const PROVIDER_MODELS: Record<
 > = {
   image: [
     {
+      id: "antigravity",
+      name: "Antigravity (OAuth)",
+      models: [
+        { id: "antigravity/gemini-3.1-flash-image", name: "Gemini 3.1 Flash Image" },
+        { id: "antigravity/gemini-3-flash", name: "Gemini 3 Flash" },
+      ],
+    },
+    {
       id: "openai",
       name: "OpenAI",
       models: [
@@ -639,8 +647,8 @@ export default function MediaPageClient() {
     <div className="space-y-6">
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-bold text-text-main">{t("title")}</h1>
-        <p className="text-text-muted text-sm mt-1">{t("subtitle")}</p>
+        <h1 className="text-xl sm:text-2xl font-bold text-text-main">{t("title")}</h1>
+        <p className="text-text-muted text-xs sm:text-sm mt-1">{t("subtitle")}</p>
       </div>
 
       {/* Modality Tabs */}
@@ -652,21 +660,23 @@ export default function MediaPageClient() {
             <button
               key={key}
               onClick={() => switchTab(key)}
-              className={`flex-1 min-w-[110px] flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all ${
+              className={`flex-1 min-w-[90px] sm:min-w-[110px] flex items-center justify-center gap-1.5 sm:gap-2 px-2 sm:px-4 py-2 sm:py-2.5 rounded-lg text-xs sm:text-sm font-medium transition-all ${
                 isActive
                   ? "bg-primary/10 text-primary shadow-sm border border-primary/20"
                   : "text-text-muted hover:text-text-main hover:bg-surface/80"
               }`}
             >
-              <span className="material-symbols-outlined text-[18px]">{cfg.icon}</span>
-              {cfg.label}
+              <span className="material-symbols-outlined text-[16px] sm:text-[18px]">
+                {cfg.icon}
+              </span>
+              <span className="hidden xs:inline">{cfg.label}</span>
             </button>
           );
         })}
       </div>
 
       {/* Generation Form */}
-      <div className="bg-surface/30 rounded-xl border border-black/5 dark:border-white/5 p-6 space-y-4">
+      <div className="bg-surface/30 rounded-xl border border-black/5 dark:border-white/5 p-4 sm:p-6 space-y-4">
         {/* Provider + Model row */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {/* Provider dropdown */}
@@ -931,7 +941,7 @@ export default function MediaPageClient() {
       )}
 
       {/* Info cards */}
-      <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4">
         {(Object.keys(MODALITY_CONFIG) as Modality[]).map((key) => {
           const cfg = MODALITY_CONFIG[key];
           const providerCount = PROVIDER_MODELS[key]?.length ?? 0;

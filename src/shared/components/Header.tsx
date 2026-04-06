@@ -136,7 +136,7 @@ export default function Header({ onMenuClick, showMenuButton = true }) {
   };
 
   return (
-    <header className="flex items-center justify-between px-8 py-5 border-b border-black/5 dark:border-white/5 bg-bg/80 backdrop-blur-xl z-10 sticky top-0">
+    <header className="flex items-center justify-between px-4 sm:px-6 lg:px-8 py-4 lg:py-5 border-b border-black/5 dark:border-white/5 bg-bg/80 backdrop-blur-xl z-10 sticky top-0">
       {/* Mobile menu button */}
       <div className="flex items-center gap-3 lg:hidden">
         {showMenuButton && (
@@ -149,8 +149,8 @@ export default function Header({ onMenuClick, showMenuButton = true }) {
         )}
       </div>
 
-      {/* Page title with breadcrumbs - desktop */}
-      <div className="hidden lg:flex flex-col">
+      {/* Page title with breadcrumbs */}
+      <div className="flex flex-col flex-1 min-w-0 mx-3 lg:mx-0">
         {breadcrumbs.length > 0 ? (
           <div className="flex items-center gap-2">
             {breadcrumbs.map((crumb, index) => (
@@ -188,7 +188,7 @@ export default function Header({ onMenuClick, showMenuButton = true }) {
                     {crumb.providerId && (
                       <ProviderIcon providerId={crumb.providerId} size={28} type="color" />
                     )}
-                    <h1 className="text-2xl font-semibold text-text-main tracking-tight">
+                    <h1 className="text-lg sm:text-xl lg:text-2xl font-semibold text-text-main tracking-tight truncate">
                       {crumb.label}
                     </h1>
                   </div>
@@ -198,23 +198,31 @@ export default function Header({ onMenuClick, showMenuButton = true }) {
           </div>
         ) : title ? (
           <div>
-            <h1 className="text-2xl font-semibold text-text-main tracking-tight">{title}</h1>
-            {description && <p className="text-sm text-text-muted">{description}</p>}
+            <h1 className="text-lg sm:text-xl lg:text-2xl font-semibold text-text-main tracking-tight truncate">
+              {title}
+            </h1>
+            {description && (
+              <p className="text-xs sm:text-sm text-text-muted hidden sm:block">{description}</p>
+            )}
           </div>
         ) : null}
       </div>
 
       {/* Right actions */}
-      <div className="flex items-center gap-3 ml-auto">
-        {/* Language selector */}
-        <LanguageSelector />
+      <div className="flex items-center gap-2 sm:gap-3 ml-auto">
+        {/* Language selector - hidden on mobile */}
+        <div className="hidden sm:block">
+          <LanguageSelector />
+        </div>
 
         {/* Theme toggle */}
         <ThemeToggle />
 
-        {/* Degradation & Token health */}
-        <DegradationBadge />
-        <TokenHealthBadge />
+        {/* Degradation & Token health - hidden on small mobile */}
+        <div className="hidden md:flex items-center gap-2">
+          <DegradationBadge />
+          <TokenHealthBadge />
+        </div>
 
         {/* Logout button */}
         <button
@@ -222,7 +230,7 @@ export default function Header({ onMenuClick, showMenuButton = true }) {
           className="flex items-center justify-center p-2 rounded-lg text-text-muted hover:text-red-500 hover:bg-red-500/10 transition-all"
           title={t("logout")}
         >
-          <span className="material-symbols-outlined">logout</span>
+          <span className="material-symbols-outlined text-[20px] sm:text-[24px]">logout</span>
         </button>
       </div>
     </header>
