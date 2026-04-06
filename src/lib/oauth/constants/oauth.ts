@@ -129,7 +129,6 @@ export const ANTIGRAVITY_CONFIG = {
     "https://www.googleapis.com/auth/userinfo.profile",
     "https://www.googleapis.com/auth/cclog",
     "https://www.googleapis.com/auth/experimentsandconfigs",
-    "https://www.googleapis.com/auth/generative-language.tuning",
   ],
   // Antigravity specific
   apiEndpoint: "https://cloudcode-pa.googleapis.com",
