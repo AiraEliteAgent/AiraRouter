@@ -2324,7 +2324,7 @@ export default function ProviderDetailPage() {
             </button>
           )}
           {!isCompatible ? (
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+            <div className="flex flex-col md:flex-row items-stretch md:items-center gap-2">
               <Button size="sm" icon="add" onClick={openPrimaryAddFlow}>
                 {providerSupportsPat ? "Add PAT" : t("add")}
               </Button>
@@ -2353,7 +2353,7 @@ export default function ProviderDetailPage() {
             <p className="text-text-main font-medium mb-1">{t("noConnectionsYet")}</p>
             <p className="text-sm text-text-muted mb-4">{t("addFirstConnectionHint")}</p>
             {!isCompatible && (
-              <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-2">
+              <div className="flex flex-col md:flex-row items-stretch md:items-center justify-center gap-2">
                 <Button icon="add" onClick={openPrimaryAddFlow}>
                   {providerSupportsPat ? "Add PAT" : t("addConnection")}
                 </Button>
