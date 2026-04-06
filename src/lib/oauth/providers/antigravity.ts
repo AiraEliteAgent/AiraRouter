@@ -1,9 +1,19 @@
+import crypto from "crypto";
 import { ANTIGRAVITY_CONFIG } from "../constants/oauth";
+
+/**
+ * Generate PKCE code verifier and challenge
+ */
+export function generatePKCE() {
+  const verifier = crypto.randomBytes(32).toString("base64url");
+  const challenge = crypto.createHash("sha256").update(verifier).digest("base64url");
+  return { verifier, challenge };
+}
 
 export const antigravity = {
   config: ANTIGRAVITY_CONFIG,
-  flowType: "authorization_code",
-  buildAuthUrl: (config, redirectUri, state) => {
+  flowType: "authorization_code_pkce",
+  buildAuthUrl: (config, redirectUri, state, codeChallenge) => {
     const params = new URLSearchParams({
       client_id: config.clientId,
       response_type: "code",
@@ -12,15 +22,18 @@ export const antigravity = {
       state: state,
       access_type: "offline",
       prompt: "consent",
+      code_challenge: codeChallenge,
+      code_challenge_method: "S256",
     });
     return `${config.authorizeUrl}?${params.toString()}`;
   },
-  exchangeToken: async (config, code, redirectUri) => {
+  exchangeToken: async (config, code, redirectUri, codeVerifier) => {
     const bodyParams: Record<string, string> = {
       grant_type: "authorization_code",
       client_id: config.clientId,
       code: code,
       redirect_uri: redirectUri,
+      code_verifier: codeVerifier,
     };
 
     if (config.clientSecret) {

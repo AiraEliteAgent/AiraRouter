@@ -143,12 +143,69 @@ export async function POST(request) {
     );
   }
 
+  // Special handling for Antigravity: route to /v1/messages instead
+  if (provider === "antigravity") {
+    // Convert OpenAI format to Anthropic Messages format
+    const messagesBody = {
+      model: body.model,
+      max_tokens: 4096,
+      messages: [
+        {
+          role: "user",
+          content: body.prompt,
+        },
+      ],
+    };
+
+    // Call /v1/messages internally
+    const messagesResponse = await fetch("http://127.0.0.1:20129/api/v1/messages", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "anthropic-version": "2023-06-01",
+      },
+      body: JSON.stringify(messagesBody),
+    });
+
+    if (!messagesResponse.ok) {
+      const errorText = await messagesResponse.text();
+      return new Response(errorText, {
+        status: messagesResponse.status,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
+
+    const messagesData = await messagesResponse.json();
+
+    // Convert Anthropic Messages response back to OpenAI format
+    const images = [];
+    for (const content of messagesData.content || []) {
+      if (content.type === "image" && content.source?.data) {
+        images.push({
+          b64_json: content.source.data,
+          revised_prompt: body.prompt,
+        });
+      }
+    }
+
+    return new Response(
+      JSON.stringify({
+        created: Math.floor(Date.now() / 1000),
+        data: images,
+      }),
+      {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+  }
+
   // Check provider config for auth bypass
   const providerConfig = getImageProvider(provider);
 
-  // Get credentials — skip for local providers (authType: "none")
+  // Get credentials — skip for local providers (authType: "none") and proxy providers (authType: "proxy")
   let credentials = null;
-  if (providerConfig && providerConfig.authType !== "none") {
+  if (providerConfig && providerConfig.authType !== "none" && providerConfig.authType !== "proxy") {
     credentials = await getProviderCredentials(provider);
     if (!credentials) {
       return errorResponse(

@@ -17,9 +17,18 @@ export class AntigravityService {
   }
 
   /**
-   * Build Antigravity authorization URL
+   * Generate PKCE code verifier and challenge
    */
-  buildAuthUrl(redirectUri: string, state: string) {
+  generatePKCE() {
+    const verifier = crypto.randomBytes(32).toString("base64url");
+    const challenge = crypto.createHash("sha256").update(verifier).digest("base64url");
+    return { verifier, challenge };
+  }
+
+  /**
+   * Build Antigravity authorization URL with PKCE
+   */
+  buildAuthUrl(redirectUri: string, state: string, codeChallenge: string) {
     const params = new URLSearchParams({
       client_id: this.config.clientId,
       response_type: "code",
@@ -28,15 +37,17 @@ export class AntigravityService {
       state: state,
       access_type: "offline",
       prompt: "consent",
+      code_challenge: codeChallenge,
+      code_challenge_method: "S256",
     });
 
     return `${this.config.authorizeUrl}?${params.toString()}`;
   }
 
   /**
-   * Exchange authorization code for tokens
+   * Exchange authorization code for tokens with PKCE
    */
-  async exchangeCode(code: string, redirectUri: string) {
+  async exchangeCode(code: string, redirectUri: string, codeVerifier: string) {
     const response = await fetch(this.config.tokenUrl, {
       method: "POST",
       headers: {
@@ -49,6 +60,7 @@ export class AntigravityService {
         client_secret: this.config.clientSecret,
         code: code,
         redirect_uri: redirectUri,
+        code_verifier: codeVerifier,
       }),
     });
 

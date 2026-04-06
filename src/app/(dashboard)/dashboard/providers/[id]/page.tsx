@@ -2078,7 +2078,7 @@ export default function ProviderDetailPage() {
     return (
       <div>
         {importButton}
-        <div className="flex flex-wrap gap-3">
+        <div className="flex flex-col sm:flex-row sm:flex-wrap gap-3">
           {models.map((model) => {
             return (
               <ModelRow
@@ -2877,17 +2877,17 @@ function ModelRow({
   compatDisabled,
 }: ModelRowProps) {
   return (
-    <div className="flex min-w-[220px] max-w-md items-center gap-2 rounded-lg border border-border px-3 py-2 hover:bg-sidebar/50">
-      <div className="flex min-w-0 flex-1 flex-wrap items-center gap-2">
+    <div className="flex w-full md:w-auto md:min-w-[220px] md:max-w-md items-center gap-2 rounded-lg border border-border px-3 py-2.5 hover:bg-sidebar/50 transition-all">
+      <div className="flex min-w-0 flex-1 items-center gap-2">
         <span className="material-symbols-outlined shrink-0 text-base text-text-muted">
           smart_toy
         </span>
-        <code className="rounded bg-sidebar px-1.5 py-0.5 font-mono text-xs text-text-muted">
+        <code className="rounded bg-sidebar px-1.5 py-0.5 font-mono text-[11px] md:text-xs text-text-muted truncate flex-1">
           {fullModel}
         </code>
         <button
           onClick={() => onCopy(fullModel, `model-${model.id}`)}
-          className="rounded p-0.5 text-text-muted hover:bg-sidebar hover:text-primary"
+          className="rounded p-1 text-text-muted hover:bg-sidebar hover:text-primary shrink-0"
           title={t("copyModel")}
         >
           <span className="material-symbols-outlined text-sm">
@@ -2895,7 +2895,7 @@ function ModelRow({
           </span>
         </button>
       </div>
-      <div className="shrink-0">
+      <div className="shrink-0 ml-auto">
         <ModelCompatPopover
           t={t}
           effectiveModelNormalize={(p) => effectiveModelNormalize(model.id, p)}
@@ -3068,30 +3068,30 @@ function PassthroughModelRow({
   compatDisabled,
 }: PassthroughModelRowProps) {
   return (
-    <div className="flex gap-0 rounded-lg border border-border p-3 hover:bg-sidebar/50">
+    <div className="flex flex-col sm:flex-row sm:items-center gap-3 rounded-lg border border-border p-3 hover:bg-sidebar/50 transition-all">
       <div className="flex min-w-0 flex-1 items-start gap-3">
-        <span className="material-symbols-outlined shrink-0 text-base text-text-muted">
+        <span className="material-symbols-outlined shrink-0 text-base text-text-muted mt-0.5 sm:mt-0">
           smart_toy
         </span>
         <div className="min-w-0 flex-1">
           <p className="truncate text-sm font-medium">{modelId}</p>
-          <div className="mt-1 flex flex-wrap items-center gap-1">
-            <code className="rounded bg-sidebar px-1.5 py-0.5 font-mono text-xs text-text-muted">
+          <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
+            <code className="rounded bg-sidebar px-1.5 py-0.5 font-mono text-[10px] md:text-xs text-text-muted break-all max-w-full overflow-hidden">
               {fullModel}
             </code>
             <button
               onClick={() => onCopy(fullModel, `model-${modelId}`)}
-              className="rounded p-0.5 text-text-muted hover:bg-sidebar hover:text-primary"
+              className="rounded p-1 text-text-muted hover:bg-sidebar hover:text-primary shrink-0"
               title={t("copyModel")}
             >
-              <span className="material-symbols-outlined text-sm">
+              <span className="material-symbols-outlined text-[14px]">
                 {copied === `model-${modelId}` ? "check" : "content_copy"}
               </span>
             </button>
           </div>
         </div>
       </div>
-      <div className="flex shrink-0 items-center gap-1 self-start">
+      <div className="flex shrink-0 items-center justify-end gap-1.5 pt-2 sm:pt-0 border-t sm:border-t-0 border-border/50">
         <ModelCompatPopover
           t={t}
           effectiveModelNormalize={(p) => effectiveModelNormalize(modelId, p)}
@@ -3105,10 +3105,10 @@ function PassthroughModelRow({
         />
         <button
           onClick={onDeleteAlias}
-          className="rounded p-1 text-red-500 hover:bg-red-50"
+          className="rounded p-1.5 text-red-500 hover:bg-red-500/10 transition-colors"
           title={t("removeModel")}
         >
-          <span className="material-symbols-outlined text-sm">delete</span>
+          <span className="material-symbols-outlined text-[18px]">delete</span>
         </button>
       </div>
     </div>

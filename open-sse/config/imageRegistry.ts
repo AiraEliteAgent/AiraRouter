@@ -62,8 +62,11 @@ export const IMAGE_PROVIDERS = {
     baseUrl: "https://generativelanguage.googleapis.com/v1beta/models",
     authType: "oauth",
     authHeader: "bearer",
-    format: "gemini-image", // Special format: uses Gemini generateContent API
-    models: [],
+    format: "gemini-image",
+    models: [
+      { id: "gemini-3.1-flash-image", name: "Gemini 3.1 Flash Image" },
+      { id: "gemini-3-flash", name: "Gemini 3 Flash" },
+    ],
     supportedSizes: ["1024x1024"],
   },
 

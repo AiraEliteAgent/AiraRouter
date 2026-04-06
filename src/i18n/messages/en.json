@@ -262,6 +262,7 @@
     "reportIssue": "Report issue",
     "activeError": "{active} active · {errors} error",
     "oauthLabel": "OAuth",
+    "freeLabel": "Free",
     "apiKeyLabel": "API Key",
     "requestsShort": "{count} reqs",
     "providerModelsTitle": "{provider} - Models",

@@ -260,6 +260,7 @@
     "reportIssue": "Báo cáo vấn đề",
     "activeError": "{active} đang hoạt động · Lỗi {errors}",
     "oauthLabel": "OAuth",
+    "freeLabel": "Miễn phí",
     "apiKeyLabel": "Khóa API",
     "requestsShort": "{count} yêu cầu",
     "providerModelsTitle": "{provider} - Người mẫu",

@@ -79,9 +79,34 @@ export async function POST(request: Request) {
     }
 
     if (isOpenAICompatibleProvider(provider)) {
-      const node: any = await getProviderNodeById(provider);
+      let node: any = await getProviderNodeById(provider);
+      
+      // Auto-create node if not found (9router-style)
       if (!node) {
-        return NextResponse.json({ error: "OpenAI Compatible node not found" }, { status: 404 });
+        // Extract info from providerSpecificData
+        const { baseUrl, prefix, apiType = "chat", chatPath, modelsPath } = providerSpecificData || {};
+        
+        if (!baseUrl || !prefix) {
+          return NextResponse.json(
+            { error: "Missing required fields: baseUrl and prefix are required for new OpenAI Compatible providers" },
+            { status: 400 }
+          );
+        }
+        
+        // Create provider node automatically
+        const { createProviderNode } = await import("@/lib/db/providers");
+        const { generateId } = await import("@/shared/utils");
+        
+        node = await createProviderNode({
+          id: provider,
+          type: "openai-compatible",
+          name: name,
+          prefix: prefix,
+          apiType: apiType,
+          baseUrl: baseUrl,
+          chatPath: chatPath || null,
+          modelsPath: modelsPath || null,
+        });
       }
 
       const existingConnections = await getProviderConnections({ provider });
@@ -102,16 +127,36 @@ export async function POST(request: Request) {
         ...(node.modelsPath ? { modelsPath: node.modelsPath } : {}),
       };
     } else if (isAnthropicCompatibleProvider(provider)) {
-      const node: any = await getProviderNodeById(provider);
+      let node: any = await getProviderNodeById(provider);
+      
+      // Auto-create node if not found (9router-style)
       if (!node) {
-        return NextResponse.json(
-          {
-            error: isClaudeCodeCompatibleProvider(provider)
-              ? "CC Compatible node not found"
-              : "Anthropic Compatible node not found",
-          },
-          { status: 404 }
-        );
+        // Extract info from providerSpecificData
+        const { baseUrl, prefix, chatPath, modelsPath } = providerSpecificData || {};
+        
+        if (!baseUrl || !prefix) {
+          return NextResponse.json(
+            { error: "Missing required fields: baseUrl and prefix are required for new Anthropic Compatible providers" },
+            { status: 400 }
+          );
+        }
+        
+        // Create provider node automatically
+        const { createProviderNode } = await import("@/lib/db/providers");
+        
+        const nodeType = isClaudeCodeCompatibleProvider(provider) 
+          ? "claude-code-compatible" 
+          : "anthropic-compatible";
+        
+        node = await createProviderNode({
+          id: provider,
+          type: nodeType,
+          name: name,
+          prefix: prefix,
+          baseUrl: baseUrl,
+          chatPath: chatPath || null,
+          modelsPath: modelsPath || null,
+        });
       }
 
       const existingConnections = await getProviderConnections({ provider });

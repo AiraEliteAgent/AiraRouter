@@ -101,6 +101,10 @@ export async function handleImageGeneration({ body, credentials, log, resolvedPr
     return handleGeminiImageGeneration({ model, providerConfig, body, credentials, log });
   }
 
+  if (providerConfig.format === "anthropic-messages") {
+    return handleAnthropicMessagesImageGeneration({ model, providerConfig, body, credentials, log });
+  }
+
   if (providerConfig.format === "imagen3") {
     return handleImagen3ImageGeneration({
       model,
@@ -151,7 +155,11 @@ export async function handleImageGeneration({ body, credentials, log, resolvedPr
  */
 async function handleGeminiImageGeneration({ model, providerConfig, body, credentials, log }) {
   const startTime = Date.now();
-  const url = `${providerConfig.baseUrl}/${model}:generateContent`;
+  // Use Cloud Code Assist API endpoint with fallback
+  const endpoints = [
+    "https://daily-cloudcode-pa.googleapis.com",
+    "https://cloudcode-pa.googleapis.com",
+  ];
   const provider = "antigravity";
 
   // Summarized request for call log
@@ -165,21 +173,36 @@ async function handleGeminiImageGeneration({ model, providerConfig, body, creden
     n: body.n || 1,
   };
 
-  const geminiBody = {
-    contents: [
-      {
-        parts: [{ text: body.prompt }],
+  // Build Cloud Code request wrapper
+  const cloudCodeRequest = {
+    project: credentials.projectId,
+    model: model,
+    request: {
+      contents: [
+        {
+          parts: [{ text: body.prompt }],
+        },
+      ],
+      generationConfig: {
+        responseModalities: ["TEXT", "IMAGE"],
       },
-    ],
-    generationConfig: {
-      responseModalities: ["TEXT", "IMAGE"],
     },
+    userAgent: "airarouter",
+    requestType: "agent",
+    requestId: "agent-" + randomUUID(),
   };
 
   const token = credentials.accessToken || credentials.apiKey;
   const headers = {
     "Content-Type": "application/json",
     Authorization: `Bearer ${token}`,
+    "User-Agent": "google-api-nodejs-client/9.15.1",
+    "X-Goog-Api-Client": "google-cloud-sdk vscode_cloudshelleditor/0.1",
+    "Client-Metadata": JSON.stringify({
+      ideType: "IDE_UNSPECIFIED",
+      platform: "PLATFORM_UNSPECIFIED",
+      pluginType: "GEMINI",
+    }),
   };
 
   if (log) {
@@ -189,42 +212,51 @@ async function handleGeminiImageGeneration({ model, providerConfig, body, creden
         : String(body.prompt ?? "").slice(0, 60);
     log.info(
       "IMAGE",
-      `antigravity/${model} (gemini) | prompt: "${promptPreview}..." | format: gemini-image`
+      `antigravity/${model} (cloudcode) | prompt: "${promptPreview}..." | format: gemini-image`
     );
   }
 
-  try {
-    const response = await fetch(url, {
-      method: "POST",
-      headers,
-      body: JSON.stringify(geminiBody),
-    });
-
-    if (!response.ok) {
-      const errorText = await response.text();
-      if (log) {
-        log.error("IMAGE", `antigravity error ${response.status}: ${errorText.slice(0, 200)}`);
-      }
-
-      saveCallLog({
+  // Try each endpoint
+  for (const endpoint of endpoints) {
+    const url = `${endpoint}/v1internal:generateContent`;
+    try {
+      const response = await fetch(url, {
         method: "POST",
-        path: "/v1/images/generations",
-        status: response.status,
-        model: `antigravity/${model}`,
-        provider,
-        duration: Date.now() - startTime,
-        error: errorText.slice(0, 500),
-        requestBody: logRequestBody,
-      }).catch(() => {});
+        headers,
+        body: JSON.stringify(cloudCodeRequest),
+      });
 
-      return { success: false, status: response.status, error: errorText };
-    }
+      if (!response.ok) {
+        const errorText = await response.text();
+        if (log) {
+          log.error("IMAGE", `antigravity error ${response.status} at ${endpoint}: ${errorText.slice(0, 200)}`);
+        }
+        // Try next endpoint on 404
+        if (response.status === 404) {
+          continue;
+        }
+        // Other errors, fail immediately
+        saveCallLog({
+          method: "POST",
+          path: "/v1/images/generations",
+          status: response.status,
+          model: `antigravity/${model}`,
+          provider,
+          duration: Date.now() - startTime,
+          error: errorText.slice(0, 500),
+          requestBody: logRequestBody,
+        }).catch(() => {});
+
+        return { success: false, status: response.status, error: errorText };
+      }
 
     const data = await response.json();
 
-    // Extract image data from Gemini response
+    // Extract image data from Cloud Code response
+    // Cloud Code wraps the response in a "response" field
+    const geminiResponse = data.response || data;
     const images = [];
-    const candidates = data.candidates || [];
+    const candidates = geminiResponse.candidates || [];
     for (const candidate of candidates) {
       const parts = candidate.content?.parts || [];
       for (const part of parts) {
@@ -256,11 +288,117 @@ async function handleGeminiImageGeneration({ model, providerConfig, body, creden
         data: images,
       },
     };
-  } catch (err) {
-    if (log) {
-      log.error("IMAGE", `antigravity fetch error: ${err.message}`);
+    } catch (err) {
+      if (log) {
+        log.error("IMAGE", `antigravity fetch error at ${endpoint}: ${err.message}`);
+      }
+      // Try next endpoint
+      continue;
+    }
+  }
+
+  // All endpoints failed
+  saveCallLog({
+    method: "POST",
+    path: "/v1/images/generations",
+    status: 502,
+    model: `antigravity/${model}`,
+    provider,
+    duration: Date.now() - startTime,
+    error: "All endpoints failed",
+    requestBody: logRequestBody,
+  }).catch(() => {});
+
+  return { success: false, status: 502, error: "All Cloud Code endpoints failed" };
+}
+
+/**
+ * Handle Anthropic Messages format image generation via Antigravity Proxy
+ * Routes to Antigravity Proxy which has proper OAuth token for Gemini image generation
+ */
+async function handleAnthropicMessagesImageGeneration({ model, providerConfig, body, credentials, log }) {
+  const startTime = Date.now();
+  const url = `${providerConfig.baseUrl}/messages`;
+  const provider = "antigravity";
+
+  const logRequestBody = {
+    model: body.model,
+    prompt: typeof body.prompt === "string" ? body.prompt.slice(0, 200) : String(body.prompt ?? "").slice(0, 200),
+    size: body.size || "default",
+    n: body.n || 1,
+  };
+
+  const messagesBody = {
+    model: model,
+    messages: [{ role: "user", content: body.prompt }],
+    max_tokens: 4096,
+  };
+
+  const headers = {
+    "Content-Type": "application/json",
+    "x-api-key": "antigravity",
+    "anthropic-version": "2023-06-01",
+  };
+
+  if (log) {
+    const promptPreview = typeof body.prompt === "string" ? body.prompt.slice(0, 60) : String(body.prompt ?? "").slice(0, 60);
+    log.info("IMAGE", `antigravity/${model} (proxy) | prompt: "${promptPreview}..." | format: anthropic-messages`);
+  }
+
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      headers,
+      body: JSON.stringify(messagesBody),
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      if (log) {
+        log.error("IMAGE", `antigravity proxy error ${response.status}: ${errorText.slice(0, 200)}`);
+      }
+      saveCallLog({
+        method: "POST",
+        path: "/v1/images/generations",
+        status: response.status,
+        model: `antigravity/${model}`,
+        provider,
+        duration: Date.now() - startTime,
+        error: errorText.slice(0, 500),
+        requestBody: logRequestBody,
+      }).catch(() => {});
+      return { success: false, status: response.status, error: errorText };
     }
 
+    const data = await response.json();
+    const images = [];
+    const content = data.content || [];
+    for (const block of content) {
+      if (block.type === "image" && block.source?.data) {
+        images.push({ b64_json: block.source.data, revised_prompt: body.prompt });
+      }
+    }
+
+    saveCallLog({
+      method: "POST",
+      path: "/v1/images/generations",
+      status: 200,
+      model: `antigravity/${model}`,
+      provider,
+      duration: Date.now() - startTime,
+      tokens: { prompt_tokens: 0, completion_tokens: 0 },
+      requestBody: logRequestBody,
+      responseBody: { images_count: images.length },
+    }).catch(() => {});
+
+    return {
+      success: true,
+      data: { created: Math.floor(Date.now() / 1000), data: images },
+    };
+  } catch (err) {
+    if (log) {
+      log.error("IMAGE", `antigravity proxy fetch error: ${err.message}`);
+    }
     saveCallLog({
       method: "POST",
       path: "/v1/images/generations",
@@ -271,7 +409,6 @@ async function handleGeminiImageGeneration({ model, providerConfig, body, creden
       error: err.message,
       requestBody: logRequestBody,
     }).catch(() => {});
-
     return { success: false, status: 502, error: `Image provider error: ${err.message}` };
   }
 }

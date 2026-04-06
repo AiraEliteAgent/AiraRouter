@@ -340,7 +340,12 @@ export default function ProvidersPage() {
     }));
 
   const oauthProviderEntries = filterConfiguredProviderEntries(
-    buildMergedOAuthProviderEntries(OAUTH_PROVIDERS, FREE_PROVIDERS, getProviderStats),
+    buildProviderEntries(OAUTH_PROVIDERS, "oauth", "oauth", getProviderStats),
+    showConfiguredOnly
+  );
+
+  const freeProviderEntries = filterConfiguredProviderEntries(
+    buildProviderEntries(FREE_PROVIDERS, "oauth", "oauth", getProviderStats),
     showConfiguredOnly
   );
 
@@ -470,6 +475,46 @@ export default function ProvidersPage() {
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {oauthProviderEntries.map(
+            ({ providerId, provider, stats, displayAuthType, toggleAuthType }) => (
+              <ProviderCard
+                key={providerId}
+                providerId={providerId}
+                provider={provider}
+                stats={stats}
+                authType={displayAuthType}
+                onToggle={(active) => handleToggleProvider(providerId, toggleAuthType, active)}
+              />
+            )
+          )}
+        </div>
+      </div>
+
+      {/* Free & Free Tier Providers */}
+      <div className="flex flex-col gap-4">
+        <div className="flex flex-wrap items-center gap-2">
+          <h2 className="text-xl font-semibold flex items-center gap-2 flex-1 min-w-0">
+            {t("freeProviders")}{" "}
+            <span className="size-2.5 rounded-full bg-green-500" title={t("freeLabel")} />
+          </h2>
+          <button
+            onClick={() => handleBatchTest("free")}
+            disabled={!!testingMode}
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium border transition-colors ${
+              testingMode === "free"
+                ? "bg-primary/20 border-primary/40 text-primary animate-pulse"
+                : "bg-bg-subtle border-border text-text-muted hover:text-text-primary hover:border-primary/40"
+            }`}
+            title={t("testAllFree")}
+            aria-label={t("testAllFree")}
+          >
+            <span className="material-symbols-outlined text-[14px]">
+              {testingMode === "free" ? "sync" : "play_arrow"}
+            </span>
+            {testingMode === "free" ? t("testing") : t("testAll")}
+          </button>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          {freeProviderEntries.map(
             ({ providerId, provider, stats, displayAuthType, toggleAuthType }) => (
               <ProviderCard
                 key={providerId}
