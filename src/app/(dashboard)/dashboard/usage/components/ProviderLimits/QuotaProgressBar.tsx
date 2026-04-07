@@ -102,7 +102,7 @@ export default function QuotaProgressBar({
       )}
 
       {/* Usage details and countdown */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 text-xs text-text-muted">
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-1 text-xs text-text-muted">
         <span>
           {used.toLocaleString()} / {total.toLocaleString()} requests
         </span>
@@ -113,7 +113,7 @@ export default function QuotaProgressBar({
           </div>
         ) : countdown !== "-" ? (
           <div className="flex items-center gap-1">
-            <span className="hidden sm:inline">•</span>
+            <span className="hidden md:inline">•</span>
             <span className="font-medium">Reset in {countdown}</span>
           </div>
         ) : null}
