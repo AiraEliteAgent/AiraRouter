@@ -82,9 +82,9 @@ export default function QuotaTable({ quotas = [] }) {
     <div className="overflow-x-auto">
       <table className="w-full table-fixed">
         <colgroup>
-          <col className="w-[30%]" /> {/* Model Name */}
-          <col className="w-[45%]" /> {/* Limit Progress */}
-          <col className="w-[25%]" /> {/* Reset Time */}
+          <col className="w-[45%] md:w-[30%]" /> {/* Model Name */}
+          <col className="w-[55%] md:w-[45%]" /> {/* Limit Progress */}
+          <col className="w-[0%] md:w-[25%] hidden md:table-cell" /> {/* Reset Time (Hidden on Mobile) */}
         </colgroup>
         <tbody>
           {quotas.map((quota, index) => {
@@ -105,16 +105,16 @@ export default function QuotaTable({ quotas = [] }) {
               >
                 {/* Model Name with Status Emoji */}
                 <td className="py-2 px-3">
-                  <div className="flex items-center gap-2">
-                    <span className="text-xs">{colors.emoji}</span>
-                    <span className="text-sm font-medium text-text-primary">{quota.name}</span>
+                  <div className="flex items-start md:items-center gap-1 md:gap-2">
+                    <span className="text-[10px] md:text-xs mt-0.5 md:mt-0">{colors.emoji}</span>
+                    <span className="text-[11px] md:text-sm font-medium text-text-primary break-all md:break-normal line-clamp-2 md:line-clamp-none">{quota.name}</span>
                   </div>
                 </td>
 
                 {/* Limit (Progress + Numbers) */}
-                <td className="py-2 px-3">
+                <td className="py-2 px-2 md:px-3">
                   <div className="space-y-1.5">
-                    {/* Progress bar - always show with border for visibility */}
+                    {/* Progress bar */}
                     <div
                       className={`h-1.5 rounded-full overflow-hidden border ${colors.bgLight} ${
                         remaining === 0
@@ -128,19 +128,34 @@ export default function QuotaTable({ quotas = [] }) {
                       />
                     </div>
 
-                    {/* Numbers */}
-                    <div className="flex items-center justify-between text-xs">
-                      <span className="text-text-muted">
-                        {quota.used.toLocaleString()} /{" "}
-                        {quota.total > 0 ? quota.total.toLocaleString() : "∞"}
-                      </span>
-                      <span className={`font-medium ${colors.text}`}>{remaining}%</span>
+                    {/* Numbers and Mobile Reset Time */}
+                    <div className="flex flex-col md:flex-row md:items-center justify-between text-[10px] md:text-xs gap-0.5 md:gap-0">
+                      <div className="flex items-center justify-between w-full md:w-auto gap-2">
+                        <span className="text-text-muted truncate">
+                          {quota.used.toLocaleString()} /{" "}
+                          {quota.total > 0 ? quota.total.toLocaleString() : "∞"}
+                        </span>
+                        <span className={`font-medium ${colors.text} md:hidden`}>{remaining}%</span>
+                      </div>
+                      <span className={`font-medium ${colors.text} hidden md:inline`}>{remaining}%</span>
+                      
+                      {/* Mobile Reset Time (shows only on small screens) */}
+                      <div className="md:hidden mt-0.5 text-[9px] text-text-muted flex items-center gap-1">
+                        <span className="opacity-50">⏱</span>
+                        {staleAfterReset ? (
+                          <span>Refresh...</span>
+                        ) : countdown !== t("notAvailableSymbol") ? (
+                          <span className="truncate">{countdown}</span>
+                        ) : (
+                          <span className="italic">N/A</span>
+                        )}
+                      </div>
                     </div>
                   </div>
                 </td>
 
-                {/* Reset Time */}
-                <td className="py-2 px-3">
+                {/* Reset Time (Desktop only) */}
+                <td className="py-2 px-3 hidden md:table-cell">
                   {staleAfterReset ? (
                     <div className="text-xs text-text-muted">⟳ Refreshing...</div>
                   ) : countdown !== t("notAvailableSymbol") || resetDisplay ? (
