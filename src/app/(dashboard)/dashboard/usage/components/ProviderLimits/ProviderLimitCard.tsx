@@ -59,7 +59,7 @@ export default function ProviderLimitCard({
   return (
     <Card padding="md" className="flex flex-col gap-4">
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div className="flex items-center gap-3">
           {/* Provider Logo */}
           <div
